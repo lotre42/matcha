@@ -52,7 +52,7 @@ class Info extends React.Component {
         let tab = [18];
         for (let i = 19; i<100; i++)
             tab.push(i);
-            if (!this.props.users.username)
+            if (!this.props.tags.username)
                  this.props.readUser(1)
         return(
                 <form onSubmit={e => this.props.updateUser(this.props.users, e)}>

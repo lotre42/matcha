@@ -1,7 +1,6 @@
 import {AT_USERS} from '../actions/actions-types'
 
 export default function ReducerUsers (state=[], action){
-    // console.log("action", action)
     switch(action.type){
         case AT_USERS.UPDATE :
             return action.payload

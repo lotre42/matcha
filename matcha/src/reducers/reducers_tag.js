@@ -6,6 +6,8 @@ export default function ReducerTag (state=[], action){
             return action.payload; // immutable
         case AT_TAG.INFO:
             return action.payload; // immutable
+        case AT_TAG.READ:
+            return action.payload; // immutable
     }
     return state
 }
