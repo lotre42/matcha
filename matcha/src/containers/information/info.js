@@ -2,10 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'
-import {infoUser} from '../actions/index'
-import {updateUser} from '../actions/index'
-import {readUser} from '../actions/index'
+import {infoUser} from '../../actions/index'
+import {updateUser} from '../../actions/index'
+import {readUser} from '../../actions/index'
 import {bindActionCreators} from 'redux'
+import { isNil } from 'lodash';
 
 
 
@@ -16,6 +17,7 @@ background: white;
 border: 1.2px rgb(224, 226, 227) solid;
 border-radius: 4px;
 `;
+
 const Select = styled.select`
 width: ${props => props.little ? '17.5%' : '45%'};
 height: 32px;
@@ -35,6 +37,12 @@ const DivInput = styled.div`
     height: 70px;
     justify-content: space-between;
 `;
+const Divbio = styled.div`
+    display: column;
+    // align-items: center;
+    height: 70px;
+    justify-content: space-between;
+`;
 
 const Divspan = styled.span`
     display: flex;
@@ -49,11 +57,21 @@ const Span = styled.span`
 
 class Info extends React.Component {
     render(){
+        function isEmpty(obj) {
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
         let tab = [18];
         for (let i = 19; i<100; i++)
             tab.push(i);
-            if (!this.props.tags.username)
-                 this.props.readUser(1)
+        if (isEmpty(this.props.users))
+        {
+            this.props.readUser(1)
+            console.log("coucou")
+        }
         return(
                 <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
                     <Divspan>
@@ -111,8 +129,16 @@ class Info extends React.Component {
                             <option value="Masculin">Masculin</option>
                         </Select>
                     </DivInput> 
-                    <button type="submit">valider</button>
-                    </form>
+                    <Divbio>
+                    <Span>Biographie:</Span>
+                    <Input 
+                            type="text" 
+                            onChange={e => this.props.infoUser(this.props.users, "username", e.target.value)}  
+                            value={this.props.users.username}
+                    />
+                    </Divbio>
+                <button type="submit">valider</button>
+                </form>
         );
     }
 }

@@ -2,37 +2,36 @@ import React, { Component } from 'react'
 import {bindActionCreators} from 'redux'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import {updateTag} from '../actions/index'
-import {readTag} from '../actions/index'
-import {infoTag} from '../actions/index'
+import {updateTag} from '../../actions/index'
+import {readTag} from '../../actions/index'
+import {infoTag} from '../../actions/index'
 
 const Div = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1.2px rgb(224, 226, 227) solid;
 `;
 const DIV = styled.div`
     width: 10%;
 `;
 const P = styled.p`
     height: 10px;
+    font-family: Mothproofscriptregular;
 `;
+
 class Tag extends Component {
     render () {
-        console.log("props",this.props.tags)
         let tag = ["Sport", "Music", "Geek", "Tatouage", "Bouffe", "Etudiant", "Cinema", "Voyage", "Feigant", "Litterature", "Shopping"]
         if (!this.props.tags.Sport && !this.props.tags.Music&&!this.props.tags.Geek&&!this.props.tags.Tatouage&&!this.props.tags.Etudiant&&!this.props.tags.Cinema&&!this.props.tags.Voyage&&!this.props.tags.Feignant&&!this.props.tags.Litterature&&!this.props.tags.Shopping)
                  this.props.readTag(1)
-        console.log("props",this.props.tags)
         return (
             <DIV>
-                {/* <form onSubmit={e => this.props.updateTag(this.props.tags, e)}> */}
                 {
                     tag.map(t =>{
                         return(
-                        // <HABASS>
-                        <Div>
-                        <P>{t}</P>
+                        <Div key={t}>
+                        <P>#{t}:</P>
                         <input
                             key={t} 
                             type="checkbox"
