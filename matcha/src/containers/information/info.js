@@ -17,6 +17,13 @@ background: white;
 border: 1.2px rgb(224, 226, 227) solid;
 border-radius: 4px;
 `;
+const Bio = styled.textarea`
+// width: 45%;
+// height: 32px;
+background: white;
+border: 1.2px rgb(224, 226, 227) solid;
+border-radius: 4px;
+`;
 
 const Select = styled.select`
 width: ${props => props.little ? '17.5%' : '45%'};
@@ -38,10 +45,8 @@ const DivInput = styled.div`
     justify-content: space-between;
 `;
 const Divbio = styled.div`
-    display: column;
-    // align-items: center;
-    height: 70px;
-    justify-content: space-between;
+display: flex;
+flex-direction: column;
 `;
 
 const Divspan = styled.span`
@@ -54,7 +59,9 @@ const Span = styled.span`
     font-weight: bold;
     font-family: Mothproofscriptregular;
 `;
-
+const H2= styled.h2`
+color: rgb(87,141,210);
+`;
 class Info extends React.Component {
     render(){
         function isEmpty(obj) {
@@ -73,7 +80,8 @@ class Info extends React.Component {
             console.log("coucou")
         }
         return(
-                <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
+                <form onSubmit={e => this.props.updateUser(this.props, e)}>
+                    <H2>Information</H2>
                     <Divspan>
                         <Span>Username:</Span>
                         <Span>Email:</Span>
@@ -131,10 +139,10 @@ class Info extends React.Component {
                     </DivInput> 
                     <Divbio>
                     <Span>Biographie:</Span>
-                    <Input 
+                    <Bio 
                             type="text" 
-                            onChange={e => this.props.infoUser(this.props.users, "username", e.target.value)}  
-                            value={this.props.users.username}
+                            onChange={e => this.props.infoUser(this.props.users, "bio", e.target.value)}  
+                            value={this.props.users.bio}
                     />
                     </Divbio>
                 <button type="submit">valider</button>
@@ -143,8 +151,10 @@ class Info extends React.Component {
     }
 }
 function mapStateToProps(state){
+    console.log(state)
     return{
        users: state.users,
+       tags: state.tags
     }
 }
 

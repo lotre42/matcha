@@ -19,7 +19,9 @@ const P = styled.p`
     height: 10px;
     font-family: Mothproofscriptregular;
 `;
-
+const H2= styled.h2`
+color: rgb(87,141,210);
+`;
 class Tag extends Component {
     render () {
         let tag = ["Sport", "Music", "Geek", "Tatouage", "Bouffe", "Etudiant", "Cinema", "Voyage", "Feigant", "Litterature", "Shopping"]
@@ -27,6 +29,7 @@ class Tag extends Component {
                  this.props.readTag(1)
         return (
             <DIV>
+                <H2>Tag</H2>
                 {
                     tag.map(t =>{
                         return(
@@ -35,7 +38,7 @@ class Tag extends Component {
                         <input
                             key={t} 
                             type="checkbox"
-                            onChange={e => this.props.infoTag(this.props.tags, t, e.target.checked)} 
+                            onChange={e => this.props.infoTag(this.props, t, e.target.checked)} 
                             checked={this.props.tags[t]} 
                         />
                         </Div>
@@ -50,9 +53,10 @@ class Tag extends Component {
     }
 }
 function mapStateToProps(state){
-    // console.log("state",state.tag)
+    // console.log("state",state)
     return{
-       tags: state.tag,
+       tags: state.tags,
+       users: state.users
     }
 }
 

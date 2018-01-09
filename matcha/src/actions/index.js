@@ -1,12 +1,13 @@
 import axios from 'axios'
-import {AT_USERS, AT_TAG} from './actions-types'
+import {AT_USERS, AT_TAG, AT_IMG} from './actions-types'
 import {browserHistory} from 'react-router'
 const END_POINT = "http://localhost:3000"
 
 export function readTag(id){
     return function (dispatch){
         axios.get(`${END_POINT}/users/${id}`).then((response) =>{
-            dispatch({type: AT_TAG.READ, payload: response.data})
+            // console.log(response.data)
+            dispatch({type: AT_TAG.READ, payload: response.data.tag})
         })
     }
 }
@@ -18,26 +19,29 @@ export function readUser(id){
         })
     }
 }
-
-export function infoTag(tags, index, value){
-    console.log("tag-->", tags)
-    // if (!tags)
-    // {
-    //     tags = { "Sport": 0, "Music": 0,"Geek": 0,"Tatouage": 0,"Bouffe": 0,"Etudiant": 0, "Cinema": 0,"Voyage": 0, "Feignant": 0,"Litterature": 0, "Shopping": 0,
-    //     }
-    // }
+// export function readImg(id){
+//     return function (dispatch){
+//         axios.get(`${END_POINT}/users/${id}`).then((response) =>{
+//             dispatch({type: AT_IMG.READ, payload: response.data.user})
+//         })
+//     }
+// }
+export function infoTag(props, index, value){
+    let tag = {...props.tags}
+    let user = {...props.users}
     if (value == true)
-        tags[index] = "checked"
+        tag[index] = "checked"
     else
-            tags[index] = 0
+            ret[index] = 0
     return function (dispatch){
         axios.put(`${END_POINT}/users/1`,
         {
-         ...tags   
+         tag,
+         user   
             
         }
     ).then((response) =>{
-            dispatch({type: AT_TAG.INFO, payload: {...tags}})
+            dispatch({type: AT_TAG.INFO, payload: tag})
         })
     }
 }
@@ -58,7 +62,7 @@ export function infoTag(tags, index, value){
 export function infoUser(state, info, value){
     return function (dispatch){
         let ret = {...state}
-        if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe")
+        if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
             ret[info] = value
         dispatch({type: AT_USERS.INFO, payload: ret})
         }
@@ -66,13 +70,14 @@ export function infoUser(state, info, value){
 
 export function  createUser(ret){
     let user = ret
+    let tag = []
     user.orientation = '';
     user.sexe = '';
     user.age = ''
     return function (dispatch){
         axios.post(`${END_POINT}/users`,
         {
-           user
+           user, tag
         }
     ).then((response) =>{
         if (response.data == '1')
@@ -81,12 +86,15 @@ export function  createUser(ret){
     }
 }
 
-export function  updateUser(user, event){
+export function  updateUser(props, event){
+    console.log(props)
+    let user = props.users;
+    let tag = props.tags;
     event.preventDefault()
     return function (dispatch){
         axios.put(`${END_POINT}/users/1`,
         {
-            user
+            user, tag
         }
     ).then((response) =>{
             dispatch({type: AT_USERS.UPDATE , payload: user})

@@ -56,7 +56,9 @@ text-align: center;
 const Input = styled.input`
 display: none;
 `;
-
+const H2= styled.h2`
+color: rgb(87,141,210);
+`;
 // const Img = styled.img`
 // -moz-border-radius: 4px;
 // -webkit-border-radius: 4px;
@@ -83,7 +85,7 @@ class ImageUpload extends React.Component {
       }).catch(err => alert('Failed to upload img'));
     }
   
-    _handleImageChange(e) {
+    ImageChange(e) {
       e.preventDefault();
   
       let reader = new FileReader();
@@ -112,13 +114,14 @@ class ImageUpload extends React.Component {
           </form>
           </div> */
         <DivProfil>
+            <H2>Image</H2>             
             <Fdiv>
                 <Blockdiv>
                     <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
                     <Label>Photo de Profil
                     <Input
                         type="file" 
-                        onChange={(e)=>this._handleImageChange(e)} 
+                        onChange={(e)=>this.ImageChange(e)} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
@@ -126,7 +129,7 @@ class ImageUpload extends React.Component {
                     <Label>Photo 1
                     <Input
                         type="file" 
-                        onChange={(e)=>this._handleImageChange(e)} 
+                        onChange={(e)=>this.ImageChange(e)} 
                     /></Label>
                 </Blockdiv>
             </Fdiv>
@@ -136,7 +139,7 @@ class ImageUpload extends React.Component {
                     <Label>Photo 2
                     <Input
                         type="file" 
-                        onChange={(e)=>this._handleImageChange(e)} 
+                        onChange={(e)=>this.ImageChange(e)} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>                
@@ -144,7 +147,7 @@ class ImageUpload extends React.Component {
                     <Label>Photo 3
                     <Input
                         type="file" 
-                        onChange={(e)=>this._handleImageChange(e)} 
+                        onChange={(e)=>this.ImageChange(e)} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
@@ -152,7 +155,7 @@ class ImageUpload extends React.Component {
                     <Label>Photo 4
                     <Input
                         type="file" 
-                        onChange={(e)=>this._handleImageChange(e)} 
+                        onChange={(e)=>this.ImageChange(e)} 
                     /></Label>
                 </Blockdiv>
             </Sdiv>

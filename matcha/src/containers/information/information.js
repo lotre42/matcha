@@ -24,12 +24,7 @@ class Information extends Component {
         return (
             <div>
                 <Logo/>
-                <H2>Information</H2>
                 <Info/>
-                <Titre>
-                    <H2>Photo</H2>
-                    <H2>Tag</H2>
-                </Titre>
                 <PhotoTag>
                     <Img/>
                     <Tag/>

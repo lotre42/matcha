@@ -11,3 +11,9 @@ export const AT_TAG={
     INFO: "INFO_TAG",
     READ: "READ_TAG",
 }
+
+export const AT_IMG={
+    UPDATE: "UPDATE_IMG",
+    INFO: "INFO_IMG",
+    READ: "READ_IMG",
+}
