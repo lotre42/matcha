@@ -26,7 +26,7 @@ const END_POINT = "http://localhost:3000"
 // }
 
  export function readUser(id){
-    console.log("2")
+    console.log("coucou")
      return function (dispatch){
          axios({
     method: 'get',
@@ -34,7 +34,6 @@ const END_POINT = "http://localhost:3000"
     params: {id}
     })
     .then((response) =>{
-        console.log("3")
              dispatch({type: AT_USERS.READ, payload: response.data})
          })
      }
@@ -50,7 +49,6 @@ export function readImg(id){
     }
 }
 export function infoTag(props, index, value){
-    console.log("props-->", props)
     // let tag = {...props.tags}
     let user = {...props}
     console.log("props-->", user)
@@ -64,7 +62,6 @@ export function infoTag(props, index, value){
         url: `${END_POINT}/info`,
         params: user
     }).then((response) =>{
-        console.log("retour", response.data)
             dispatch({type: AT_USERS.INFO_TAG , payload: response.data})
         })
     }
@@ -85,14 +82,19 @@ export function infoTag(props, index, value){
 //     }
 // }
 */
-export function infoUser(state, info, value){
-    // console.log("info", state)
+export function imgUser(e, props, image){
     return function (dispatch){
-        let ret = {...state}
-        if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
-            ret[info] = value
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    let ret = {...props}
+    reader.onloadend = () => {
+        ret[image] = reader.result;
         dispatch({type: AT_USERS.INFO_USER, payload: ret})
-        }
+    }
+    reader.readAsDataURL(file)
+    
+   
+}
 }
 /*
 // export function  createUser(ret){
@@ -144,7 +146,6 @@ export function  checkConnexion(user){
             url: `${END_POINT}/login`,
             params: user
     }).then((response) =>{
-        console.log(response.data)
         if(response.data)
         {
             dispatch({type: AT_USERS.CHECK , payload: response.data})

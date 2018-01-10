@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import FormData from 'form-data';
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {imgUser} from '../../actions/index'
+
 
 const Img = styled.img`
  src : ${props => props.src};
@@ -67,40 +71,44 @@ color: rgb(87,141,210);
 // `;
 
 class ImageUpload extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {file: '',imagePreviewUrl: '../../avatar.png'};
-    }
+    // constructor(props) {
+    //   super(props);
+    //   this.state = {file: '', imagePreviewUrl: '../../avatar.png'};
+    // }
   
-    _handleSubmit(e) {
-      e.preventDefault();
-      const ret = this.state.file
-      const formData = new FormData();
-      formData.append("webmasterfile", ret);
-      const END_POINT = "http://localhost:3000"
-      axios.post(`${END_POINT}/users`, formData, {
-        headers: { 'content-type': 'multipart/form-data' }
-      }).then(result => {
-        // location.reload();
-      }).catch(err => alert('Failed to upload img'));
-    }
+    // _handleSubmit(e) {
+    //   e.preventDefault();
+    //   const ret = this.state.file
+    //   const formData = new FormData();
+    //   formData.append("webmasterfile", ret);
+    //   const END_POINT = "http://localhost:3000"
+    //   axios.post(`${END_POINT}/users`, formData, {
+    //     headers: { 'content-type': 'multipart/form-data' }
+    //   }).then(result => {
+    //     // location.reload();
+    //   }).catch(err => alert('Failed to upload img'));
+    // }
   
-    ImageChange(e) {
-      e.preventDefault();
+    // ImageChange(e) {
+    //   e.preventDefault();
   
-      let reader = new FileReader();
-      let file = e.target.files[0];
-      reader.onloadend = () => {
-        this.setState({
-          file: file,
-          imagePreviewUrl: reader.result
-        });
-      }
+    //   let reader = new FileReader();
+    //   let file = e.target.files[0];
+    //   reader.onloadend = () => {
+    // let ret = {...this.props.users}
+    // ret['image_profil'] = reader.result;
+    // console.log(ret)
+    //     // this.setState({
+    //     //   file: file,
+    //     //   imagePreviewUrl: reader.result
+    //     // });
+    //   }
   
-      reader.readAsDataURL(file)
-    }
+    //   reader.readAsDataURL(file)
+    // }
   
     render() {
+        console.log("dd", this.props.users.image_profil)
       return (
         
         // <DivPrincipal>
@@ -117,45 +125,45 @@ class ImageUpload extends React.Component {
             <H2>Image</H2>             
             <Fdiv>
                 <Blockdiv>
-                    <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
+                    <Img src={this.props.users.image_profil} width="200" height="200"/>
                     <Label>Photo de Profil
                     <Input
                         type="file" 
-                        onChange={(e)=>this.ImageChange(e)} 
+                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_profil')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
+                    <Img src={this.props.users.image_1} width="200" height="200"/>
                     <Label>Photo 1
                     <Input
                         type="file" 
-                        onChange={(e)=>this.ImageChange(e)} 
+                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_1')} 
                     /></Label>
                 </Blockdiv>
             </Fdiv>
             <Sdiv>
-                <Blockdiv>
-                    <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
+                 <Blockdiv>
+                    <Img src={this.props.users.image_2} width="200" height="200"/>
                     <Label>Photo 2
                     <Input
                         type="file" 
-                        onChange={(e)=>this.ImageChange(e)} 
-                    /></Label>
-                </Blockdiv>
-                <Blockdiv>                
-                    <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
-                    <Label>Photo 3
-                    <Input
-                        type="file" 
-                        onChange={(e)=>this.ImageChange(e)} 
+                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_2')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.state.imagePreviewUrl} width="200" height="200"/>
+                    <Img src={this.props.users.image_3} width="200" height="200"/>
+                    <Label>Photo 3
+                    <Input
+                        type="file" 
+                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_3')} 
+                    /></Label>
+                </Blockdiv>
+                <Blockdiv>
+                    <Img src={this.props.users.image_4} width="200" height="200"/>
                     <Label>Photo 4
                     <Input
                         type="file" 
-                        onChange={(e)=>this.ImageChange(e)} 
+                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_4')} 
                     /></Label>
                 </Blockdiv>
             </Sdiv>
@@ -165,4 +173,17 @@ class ImageUpload extends React.Component {
     }
   }
 
-export default ImageUpload     
+function mapStateToProps(state){
+    console.log("uusss",state.users)
+    return{
+       users: state.users,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        ...bindActionCreators({imgUser}, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload)

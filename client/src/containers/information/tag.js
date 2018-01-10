@@ -24,7 +24,7 @@ color: rgb(87,141,210);
 `;
 class Tag extends Component {
     render () {
-        console.log(this.props.users)
+        // console.log(this.props.users)
         let tag = ["Sport", "Music", "Geek", "Tatouage", "Bouffe", "Etudiant", "Cinema", "Voyage", "Feigant", "Litterature", "Shopping"]
         // if (!this.props.users.Sport && !this.props.users.Music&&!this.props.users.Geek&&!this.props.users.Tatouage&&!this.props.users.Etudiant&&!this.props.users.Cinema&&!this.props.users.Voyage&&!this.props.users.Feignant&&!this.props.users.Litterature&&!this.props.users.Shopping)
         //          this.props.readUser(1)
