@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     users: ReducerUsers,
     form: ReducerForm,
     // tags: ReducerTag,
-    // img: ReducerImg,
+    img: ReducerImg,
 })
 
 export default rootReducer 

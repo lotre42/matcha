@@ -16,5 +16,5 @@ export const AT_TAG={
 export const AT_IMG={
     UPDATE: "UPDATE_IMG",
     INFO: "INFO_IMG",
-    READ: "READ_IMG",
+    CREATE: "CREATE_IMG",
 }

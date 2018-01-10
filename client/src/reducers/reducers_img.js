@@ -6,7 +6,7 @@ export default function ReducerTag (state=[], action){
             return action.payload; // immutable
         case AT_IMG.INFO:
             return action.payload; // immutable
-        case AT_IMG.READ:
+        case AT_IMG.CREATE:
             return action.payload; // immutable
     }
     return state

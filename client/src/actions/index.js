@@ -41,11 +41,10 @@ const END_POINT = "http://localhost:3000"
 
 
     
-export function readImg(id){
+export function imgCreate(){
+    let image = {"image_profil": "../../avatar.png", "image_1": "../../avatar.png", "image_2": "../../avatar.png", "image_3": "../../avatar.png", "image_4": "../../avatar.png"}
     return function (dispatch){
-        axios.get(`${END_POINT}/users/${id}`).then((response) =>{
-            dispatch({type: AT_IMG.READ, payload: response.data.user})
-        })
+            dispatch({type: AT_IMG.CREATE, payload: image})
     }
 }
 export function infoTag(props, index, value){
@@ -82,19 +81,17 @@ export function infoTag(props, index, value){
 //     }
 // }
 */
-export function imgUser(e, props, image){
+export function imgInfo(e, props, image){
     return function (dispatch){
     let reader = new FileReader();
     let file = e.target.files[0];
     let ret = {...props}
     reader.onloadend = () => {
         ret[image] = reader.result;
-        dispatch({type: AT_USERS.INFO_USER, payload: ret})
+        dispatch({type: AT_IMG.INFO, payload: ret})
     }
-    reader.readAsDataURL(file)
-    
-   
-}
+    reader.readAsDataURL(file)  
+    }
 }
 /*
 // export function  createUser(ret){
@@ -123,21 +120,21 @@ export const createUser = (ret) => axios({
     // browserHistory.push('/info')
     })
 
-export function  updateUser(props, event){
-    // console.log(props)
-    let user = props.users;
-    // let tag = props.tags;
-    event.preventDefault()
-    return function (dispatch){
-        axios({ method: 'put',
-        url: `${END_POINT}/info`,
-        params: user
-    }).then((response) =>{
-        // console.log("retour", response.data)
-            dispatch({type: AT_USERS.UPDATE , payload: response.data})
-        })
-    }
-}
+// export function  updateUser(props, event){
+//     // console.log(props)
+//     let user = props.users;
+//     // let tag = props.tags;
+//     event.preventDefault()
+//     return function (dispatch){
+//         axios({ method: 'put',
+//         url: `${END_POINT}/info`,
+//         params: user
+//     }).then((response) =>{
+//         // console.log("retour", response.data)
+//             dispatch({type: AT_USERS.UPDATE , payload: response.data})
+//         })
+//     }
+// }
 
 export function  checkConnexion(user){
     return function (dispatch){

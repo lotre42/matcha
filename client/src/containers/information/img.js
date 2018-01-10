@@ -4,8 +4,8 @@ import FormData from 'form-data';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {imgUser} from '../../actions/index'
-
+import {imgCreate} from '../../actions/index'
+import {imgInfo} from '../../actions/index'
 
 const Img = styled.img`
  src : ${props => props.src};
@@ -108,9 +108,12 @@ class ImageUpload extends React.Component {
     // }
   
     render() {
-        console.log("dd", this.props.users.image_profil)
+        if (this.props.image.image_profil == undefined){
+            this.props.imgCreate();
+        }
+        console.log(this.props.image);
       return (
-        
+        // <p>coucou</p>
         // <DivPrincipal>
             /* <div>
           <form onSubmit={(e)=>this._handleSubmit(e)}>
@@ -125,45 +128,45 @@ class ImageUpload extends React.Component {
             <H2>Image</H2>             
             <Fdiv>
                 <Blockdiv>
-                    <Img src={this.props.users.image_profil} width="200" height="200"/>
+                    <Img src={this.props.image.image_profil} width="200" height="200"/>
                     <Label>Photo de Profil
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_profil')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_profil')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.users.image_1} width="200" height="200"/>
+                    <Img src={this.props.image.image_1} width="200" height="200"/>
                     <Label>Photo 1
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_1')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_1')} 
                     /></Label>
                 </Blockdiv>
             </Fdiv>
             <Sdiv>
                  <Blockdiv>
-                    <Img src={this.props.users.image_2} width="200" height="200"/>
+                    <Img src={this.props.image.image_2} width="200" height="200"/>
                     <Label>Photo 2
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_2')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_2')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.users.image_3} width="200" height="200"/>
+                    <Img src={this.props.image.image_3} width="200" height="200"/>
                     <Label>Photo 3
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_3')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_3')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.users.image_4} width="200" height="200"/>
+                    <Img src={this.props.image.image_4} width="200" height="200"/>
                     <Label>Photo 4
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgUser(e, this.props.users, 'image_4')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_4')} 
                     /></Label>
                 </Blockdiv>
             </Sdiv>
@@ -174,15 +177,15 @@ class ImageUpload extends React.Component {
   }
 
 function mapStateToProps(state){
-    console.log("uusss",state.users)
+    console.log("uusss",state.img)
     return{
-       users: state.users,
+       image: state.img,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        ...bindActionCreators({imgUser}, dispatch)
+        ...bindActionCreators({imgCreate, imgInfo}, dispatch)
     };
 };
 
