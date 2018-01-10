@@ -64,6 +64,7 @@ color: rgb(87,141,210);
 `;
 class Info extends React.Component {
     render(){
+       console.log(this.props.users)
         function isEmpty(obj) {
             for(var key in obj) {
                 if(obj.hasOwnProperty(key))
@@ -76,9 +77,10 @@ class Info extends React.Component {
             tab.push(i);
         if (isEmpty(this.props.users))
         {
+            console.log("1")
             this.props.readUser(1)
-            console.log("coucou")
         }
+        console.log("4")
         return(
                 <form onSubmit={e => this.props.updateUser(this.props, e)}>
                     <H2>Information</H2>
@@ -151,10 +153,9 @@ class Info extends React.Component {
     }
 }
 function mapStateToProps(state){
-    console.log(state)
+    console.log("uusss",state.users.info)
     return{
        users: state.users,
-       tags: state.tags
     }
 }
 

@@ -2,8 +2,9 @@ export const AT_USERS={
     CREATE: "CREATE_USER",
     CHECK: "CHECK_CONNEXION",
     READ: "READ_USER",
-    INFO: "INFO_USER",
+    INFO_USER: "INFO_USER",
     UPDATE: "UPDATE_USER",
+    INFO_TAG: "UPDATE_USER",
 }
 
 export const AT_TAG={

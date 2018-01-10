@@ -25,10 +25,10 @@ class Information extends Component {
             <div>
                 <Logo/>
                 <Info/>
-                <PhotoTag>
+                {/* <PhotoTag> */}
                     <Img/>
                     <Tag/>
-                </PhotoTag>
+                {/* </PhotoTag> */}
             </div>
         )
     }

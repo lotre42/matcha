@@ -7,8 +7,8 @@ import {reducer as ReducerForm} from 'redux-form'
 const rootReducer = combineReducers({
     users: ReducerUsers,
     form: ReducerForm,
-    tags: ReducerTag,
-    img: ReducerImg,
+    // tags: ReducerTag,
+    // img: ReducerImg,
 })
 
 export default rootReducer 
