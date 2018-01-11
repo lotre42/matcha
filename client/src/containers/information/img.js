@@ -108,8 +108,8 @@ class ImageUpload extends React.Component {
     // }
   
     render() {
-        if (this.props.image.image_profil == undefined){
-            this.props.imgCreate();
+        if (this.props.image.profile_picture == undefined){
+            this.props.imgCreate(1);
         }
         console.log(this.props.image);
       return (
@@ -128,45 +128,45 @@ class ImageUpload extends React.Component {
             <H2>Image</H2>             
             <Fdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.image_profil} width="200" height="200"/>
+                    <Img src={this.props.image.profile_picture} width="200" height="200"/>
                     <Label>Photo de Profil
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_profil')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'profile_picture')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.image_1} width="200" height="200"/>
+                    <Img src={this.props.image.picture_1} width="200" height="200"/>
                     <Label>Photo 1
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_1')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_1')} 
                     /></Label>
                 </Blockdiv>
             </Fdiv>
             <Sdiv>
                  <Blockdiv>
-                    <Img src={this.props.image.image_2} width="200" height="200"/>
+                    <Img src={this.props.image.picture_2} width="200" height="200"/>
                     <Label>Photo 2
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_2')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_2')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.image_3} width="200" height="200"/>
+                    <Img src={this.props.image.picture_3} width="200" height="200"/>
                     <Label>Photo 3
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_3')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_3')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.image_4} width="200" height="200"/>
+                    <Img src={this.props.image.picture_4} width="200" height="200"/>
                     <Label>Photo 4
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'image_4')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_4')} 
                     /></Label>
                 </Blockdiv>
             </Sdiv>

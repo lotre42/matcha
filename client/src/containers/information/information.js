@@ -3,6 +3,7 @@ import Info from './info'
 import Logo from '../../components/logo'
 import Tag from './tag'
 import Img from './Img'
+import Loc from '../loc'
 import styled from 'styled-components'
 
 const PhotoTag = styled.div`
@@ -25,10 +26,11 @@ class Information extends Component {
             <div>
                 <Logo/>
                 <Info/>
-                {/* <PhotoTag> */}
+                <PhotoTag>
                     <Img/>
                     <Tag/>
-                {/* </PhotoTag> */}
+                </PhotoTag>
+                <Loc />
             </div>
         )
     }

@@ -41,10 +41,17 @@ const END_POINT = "http://localhost:3000"
 
 
     
-export function imgCreate(){
-    let image = {"image_profil": "../../avatar.png", "image_1": "../../avatar.png", "image_2": "../../avatar.png", "image_3": "../../avatar.png", "image_4": "../../avatar.png"}
+export function imgCreate(id){
+    let image = {"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
     return function (dispatch){
-            dispatch({type: AT_IMG.CREATE, payload: image})
+//         axios({
+//    method: 'get',
+//    url: `${END_POINT}/user`,
+//    params: {id}
+//    })
+//    .then((response) =>{
+            dispatch({type: AT_IMG.INFO, payload: image})
+        // })
     }
 }
 export function infoTag(props, index, value){
@@ -90,7 +97,12 @@ export function imgInfo(e, props, image){
         ret[image] = reader.result;
         dispatch({type: AT_IMG.INFO, payload: ret})
     }
-    reader.readAsDataURL(file)  
+    reader.readAsDataURL(file)
+    const formData = new FormData();
+    formData.append(image, file);
+    axios.post(`${END_POINT}/upload`, formData, {
+    headers: { 'content-type': 'multipart/form-data' }
+    })
     }
 }
 /*
