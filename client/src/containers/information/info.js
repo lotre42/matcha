@@ -7,7 +7,7 @@ import {updateUser} from '../../actions/index'
 import {readUser} from '../../actions/index'
 import {bindActionCreators} from 'redux'
 import { isNil } from 'lodash';
-
+import axios from 'axios'
 
 
 const Input = styled.input`
