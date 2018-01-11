@@ -35,11 +35,11 @@ app.get('/users', function(req, res){
             console.log('its in');
             new User({
                 username: req.query.username,
-                lastname: req.query.nom,
-                firstname: req.query.prenom,
+                nom: req.query.nom,
+                prenom: req.query.prenom,
                 email: req.query.email,
                 password: req.query.password,
-                passwordconfirm: req.query.confirm
+                confirm: req.query.confirm
             }).save();
             return(res.send('He registred'));            
         }
@@ -49,6 +49,24 @@ app.get('/users', function(req, res){
         console.log('users = ' + users);
     });
 });
+app.get('/id', function(req, res) {
+
+    var ID = req.query.id;
+    console.log(ID)
+    User.findById({_id: ID}, function(err, users) {
+        if (err){
+             return(res.send('Error'));
+        }
+        if (!users){
+            console.log('pas trouver');
+            return(res.send('pas trouver'));
+        }
+        else {
+            console.log('user = ', users);
+            return(res.send(users));
+        }
+    })
+})
 
 app.post('/login', function(req, res){
 
@@ -61,18 +79,18 @@ app.post('/login', function(req, res){
         }
         if (!users) {
             console.log('Je trouve R');
-            return(res.send('je trouve pas'))
+            return(res.send('non'))
         }
         else {
             console.log('je les trouver');
             console.log('users = ', users);
-            return(res.send('je les trouver'));
+            return(res.send(users));
         }
     })
 });
 
-app.get('/info', function(req, res){
-    console.log("req:", req.body);
+app.put('/info', function(req, res){
+    console.log("req:", req.query);
 
     res.json({ status: 'ok' });    
 })

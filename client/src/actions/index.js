@@ -26,20 +26,28 @@ const END_POINT = "http://localhost:3000"
 // }
 
  export function readUser(id){
-    console.log("coucou")
+    console.log("")
      return function (dispatch){
          axios({
     method: 'get',
-    url: `${END_POINT}/user`,
-    params: {id}
+    url: `${END_POINT}/id`,
+    params: {"id": "5a578c0431a7e9498aaa9bda"}
     })
     .then((response) =>{
+        console.log("id", response.data)
              dispatch({type: AT_USERS.READ, payload: response.data})
          })
      }
  }
 
-
+//  export const readUser = (id) => axios({
+//     method: 'get',
+//     url: `${END_POINT}/id`,
+//     params: id
+//     }).then((response) =>{
+//         console.log("id", response.data)
+//         dispatch({type: AT_USERS.READ, payload: response.data})
+//     })
     
 export function imgCreate(id){
     let image = {"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
@@ -57,7 +65,6 @@ export function imgCreate(id){
 export function infoTag(props, index, value){
     // let tag = {...props.tags}
     let user = {...props}
-    console.log("props-->", user)
     if (value == true)
         user[index] = "checked"
     else
@@ -68,10 +75,19 @@ export function infoTag(props, index, value){
         url: `${END_POINT}/info`,
         params: user
     }).then((response) =>{
-            dispatch({type: AT_USERS.INFO_TAG , payload: response.data})
+            dispatch({type: AT_USERS.INFO_TAG , payload: user})
         })
     }
 }
+
+export function infoUser(state, info, value){
+    return function (dispatch){
+    let ret = {...state}
+    if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
+    ret[info] = value
+    dispatch({type: AT_USERS.INFO_USER, payload: ret})
+    }
+    }
 /*
 // export function  updateTag(tags, event){
 //     event.preventDefault()
@@ -132,21 +148,21 @@ export const createUser = (ret) => axios({
     // browserHistory.push('/info')
     })
 
-// export function  updateUser(props, event){
-//     // console.log(props)
-//     let user = props.users;
-//     // let tag = props.tags;
-//     event.preventDefault()
-//     return function (dispatch){
-//         axios({ method: 'put',
-//         url: `${END_POINT}/info`,
-//         params: user
-//     }).then((response) =>{
-//         // console.log("retour", response.data)
-//             dispatch({type: AT_USERS.UPDATE , payload: response.data})
-//         })
-//     }
-// }
+export function  updateUser(props, event){
+    console.log("props", )
+    // let user = props.users;
+    // let tag = props.tags;
+    event.preventDefault()
+    return function (dispatch){
+        axios({ method: 'put',
+        url: `${END_POINT}/info`,
+        params: props
+    }).then((response) =>{
+        // console.log("retour", response.data)
+            dispatch({type: AT_USERS.UPDATE , payload: props})
+        })
+    }
+}
 
 export function  checkConnexion(user){
     return function (dispatch){

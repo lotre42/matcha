@@ -79,7 +79,7 @@ class Info extends React.Component {
             this.props.readUser(1)
         }
         return(
-                <form onSubmit={e => this.props.updateUser(this.props, e)}>
+                <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
                     <H2>Information</H2>
                     <Divspan>
                         <Span>Username:</Span>

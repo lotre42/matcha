@@ -60,7 +60,7 @@ font-size: 90%;
 const formConfig = {
     form: "createUserForm",
     fields: ['username', 'nom', 'prenom', 'email', 'password', 'confirm'],
-    // validate
+    validate
 }
 class Register extends React.Component {
     render() {
