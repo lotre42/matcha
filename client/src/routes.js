@@ -3,7 +3,7 @@ import Home from './containers/home/home'
 import NotFound from './components/Notfound'
 import Information from './containers/information/information'
 import Info from './containers/information/info'
-import Connexion from './containers/connexion'
+import Connexion from './containers/connexion/connexion'
 import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 
 class Routes extends Component {    

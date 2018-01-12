@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {checkConnexion} from '../actions/index'
+import {checkConnexion} from '../../actions/index'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'
 import {browserHistory} from 'react-router'
