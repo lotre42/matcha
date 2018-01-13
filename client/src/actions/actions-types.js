@@ -7,10 +7,9 @@ export const AT_USERS={
     INFO_TAG: "UPDATE_USER",
 }
 
-export const AT_TAG={
-    UPDATE: "UPDATE_TAG",
-    INFO: "INFO_TAG",
-    READ: "READ_TAG",
+export const AT_SEARCH={
+    UPDATE: "UPDATE_SEARCH",
+    INFO: "INFO_SEARCH",
 }
 
 export const AT_IMG={

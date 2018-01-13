@@ -7,6 +7,8 @@ import {updateUser} from '../../actions/index'
 import {readUser} from '../../actions/index'
 import {bindActionCreators} from 'redux'
 import { isNil } from 'lodash';
+import Tag from '../tag'
+
 import axios from 'axios'
 
 
@@ -48,18 +50,21 @@ const Divbio = styled.div`
 display: flex;
 flex-direction: column;
 `;
-
+const Divtag = styled.div`
+padding-top: 2%;
+`;
 const Divspan = styled.span`
     display: flex;
     justify-content: space-between;
     font-weight: bold;
 `;
+
 const Span = styled.span`
     width: ${props => props.little ? '17.5%' : '45%'};
     font-weight: bold;
     font-family: Mothproofscriptregular;
 `;
-const H2= styled.h2`
+const H3= styled.h3`
 color: rgb(87,141,210);
 `;
 class Info extends React.Component {
@@ -80,7 +85,7 @@ class Info extends React.Component {
         }
         return(
                 <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
-                    <H2>Information</H2>
+                    <H3>Information</H3>
                     <Divspan>
                         <Span>Username:</Span>
                         <Span>Email:</Span>
@@ -144,6 +149,10 @@ class Info extends React.Component {
                             value={this.props.users.bio}
                     />
                     </Divbio>
+                    <Divtag>                    
+                        <Span>Tag:</Span>
+                        <Tag s/>
+                    </Divtag>
                 <button type="submit">valider</button>
                 </form>
         );

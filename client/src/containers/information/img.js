@@ -60,7 +60,7 @@ text-align: center;
 const Input = styled.input`
 display: none;
 `;
-const H2= styled.h2`
+const H3= styled.h3`
 color: rgb(87,141,210);
 `;
 // const Img = styled.img`
@@ -125,7 +125,7 @@ class ImageUpload extends React.Component {
           </form>
           </div> */
         <DivProfil>
-            <H2>Image</H2>             
+            <H3>Image</H3>             
             <Fdiv>
                 <Blockdiv>
                     <Img src={this.props.image.profile_picture} width="200" height="200"/>

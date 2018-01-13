@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Info from './info'
 import Logo from '../../components/logo'
-import Tag from './tag'
 import Img from './Img'
 import Loc from '../loc'
 import styled from 'styled-components'
@@ -26,10 +25,10 @@ class Information extends Component {
             <div>
                 <Logo/>
                 <Info/>
-                <PhotoTag>
-                    <Img/>
-                    <Tag/>
-                </PhotoTag>
+                {/* <PhotoTag> */}
+                {/* <Tag/> */}
+                <Img/>
+                {/* </PhotoTag> */}
                 <Loc />
             </div>
         )
