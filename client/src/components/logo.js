@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {browserHistory} from 'react-router'
 
 const DivImg = styled.div`
 text-align: center;
@@ -12,7 +13,7 @@ const Img = styled.img`
 const Logo = () => {
     return (
         <DivImg>
-            <Img src="../../style/retour2.png"/>
+            <Img onClick={e => browserHistory.push('/')} src="../../style/retour2.png"/>
         </DivImg>
     )
 }

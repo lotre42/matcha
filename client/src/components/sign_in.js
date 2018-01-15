@@ -1,4 +1,5 @@
-import React from 'react'
+import {browserHistory} from 'react-router'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const DivImg = styled.div`
@@ -15,13 +16,15 @@ border-radius: 3px;
 width: 32%;
 `;
 
-const Sign = () => {
-    return (
-        <DivImg>
-            <Button>Vous avez un compte? Connectez-vous</Button>
-        </DivImg>
-    )
-}
 
+class Sign extends Component {
+    render () {
+        return (
+        <DivImg>
+            <Button onClick={e => browserHistory.push('/connexion')}>Vous avez un compte? Connectez-vous</Button>
+        </DivImg>
+        )
+    }
+}
 
 export default Sign

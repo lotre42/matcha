@@ -4,6 +4,8 @@ import Logo from '../../components/logo'
 import Img from './Img'
 import Loc from '../loc'
 import styled from 'styled-components'
+import Menu from '../../components/menu'
+
 
 const PhotoTag = styled.div`
 width: 85%;
@@ -23,6 +25,7 @@ class Information extends Component {
     render () {
         return (
             <div>
+                <Menu />
                 <Logo/>
                 <Info/>
                 {/* <PhotoTag> */}

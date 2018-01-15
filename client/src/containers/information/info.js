@@ -79,87 +79,90 @@ class Info extends React.Component {
         let tab = [18];
         for (let i = 19; i<100; i++)
             tab.push(i);
-        if (isEmpty(this.props.users))
+        if (isEmpty(this.props.users.info))
         {
             this.props.readUser(1)
+            return(<div></div>)
         }
-        return(
-                <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
-                    <H3>Information</H3>
-                    <Divspan>
-                        <Span>Username:</Span>
-                        <Span>Email:</Span>
-                    </Divspan>
-                    <DivInput>
-                        <Input 
-                            type="text" 
-                            onChange={e => this.props.infoUser(this.props.users, "username", e.target.value)}  
-                            value={this.props.users.username}
+        else{
+            return(
+                    <form onSubmit={e => this.props.updateUser(this.props.users, e)}>
+                        <H3>Information</H3>
+                        <Divspan>
+                            <Span>Username:</Span>
+                            <Span>Email:</Span>
+                        </Divspan>
+                        <DivInput>
+                            <Input 
+                                type="text" 
+                                onChange={e => this.props.infoUser(this.props.users, "username", e.target.value, "info")}  
+                                value={this.props.users.info.username}
+                            />
+                            <Input 
+                                type="email" 
+                                value={this.props.users.info.email}
+                            />
+                        </DivInput>
+                        <Divspan>
+                            <Span>Nom:</Span>
+                            <Span>Prenom:</Span>
+                        </Divspan>
+                        <DivInput>
+                            <Input 
+                                type="text" 
+                                onChange={e => this.props.infoUser(this.props.users, "nom", e.target.value, "info")} 
+                                value={this.props.users.info.nom}
+                            />
+                            <Input 
+                                type="text" 
+                                onChange={e => this.props.infoUser(this.props.users, "prenom", e.target.value, "info")} 
+                                value={this.props.users.info.prenom} 
+                            />
+                        </DivInput>
+                        <Divspan>
+                            <Span>Orientation-sexuelle:</Span>
+                            <Span little>Age:</Span>
+                            <Span little>Sexe:</Span>
+                        </Divspan>
+                        <DivInput>
+                            <Select type="text" onChange={e => this.props.infoUser(this.props.users, "orientation", e.target.value, "info")}>
+                                <option value={this.props.users.info.orientation}>{this.props.users.info.orientation}</option>
+                                <option  value="Bisexuel">Bisexuel</option>
+                                <option value="Homosexuel">Homosexuel</option>
+                                <option value="Heterosexuel">Heterosexuel</option>
+                            </Select>
+                            <Select little type="text" onChange={e => this.props.infoUser(this.props.users, "age", e.target.value, "info")}>
+                                <option value={this.props.users.info.age}>{this.props.users.info.age}</option>
+                                {tab.map(t => {
+                                    return <option key={t} value={t}>{t}</option>
+                                })}
+                            </Select>
+                            <Select little type="text" onChange={e => this.props.infoUser(this.props.users, "sexe", e.target.value, "info")}>
+                                <option value={this.props.users.info.sexe}>{this.props.users.info.sexe}</option>
+                                <option value="Feminin">Feminin</option>
+                                <option value="Masculin">Masculin</option>
+                            </Select>
+                        </DivInput> 
+                        <Divbio>
+                        <Span>Biographie:</Span>
+                        <Bio 
+                                type="text" 
+                                onChange={e => this.props.infoUser(this.props.users, "bio", e.target.value, "info")}  
+                                value={this.props.users.info.bio}
                         />
-                        <Input 
-                            type="email" 
-                            value={this.props.users.email}
-                        />
-                    </DivInput>
-                     <Divspan>
-                        <Span>Nom:</Span>
-                        <Span>Prenom:</Span>
-                    </Divspan>
-                    <DivInput>
-                        <Input 
-                            type="text" 
-                            onChange={e => this.props.infoUser(this.props.users, "nom", e.target.value)} 
-                            value={this.props.users.nom}
-                        />
-                        <Input 
-                            type="text" 
-                            onChange={e => this.props.infoUser(this.props.users, "prenom", e.target.value)} 
-                            value={this.props.users.prenom} 
-                        />
-                    </DivInput>
-                    <Divspan>
-                        <Span>Orientation-sexuelle:</Span>
-                        <Span little>Age:</Span>
-                        <Span little>Sexe:</Span>
-                    </Divspan>
-                    <DivInput>
-                        <Select type="text" onChange={e => this.props.infoUser(this.props.users, "orientation", e.target.value)}>
-                            <option value={this.props.users.orientation}>{this.props.users.orientation}</option>
-                            <option  value="Bisexuel">Bisexuel</option>
-                            <option value="Homosexuel">Homosexuel</option>
-                            <option value="Heterosexuel">Heterosexuel</option>
-                        </Select>
-                        <Select little type="text" onChange={e => this.props.infoUser(this.props.users, "age", e.target.value)}>
-                            <option value={this.props.users.age}>{this.props.users.age}</option>
-                            {tab.map(t => {
-                                return <option key={t} value={t}>{t}</option>
-                            })}
-                        </Select>
-                        <Select little type="text" onChange={e => this.props.infoUser(this.props.users, "sexe", e.target.value)}>
-                            <option value={this.props.users.sexe}>{this.props.users.sexe}</option>
-                            <option value="Feminin">Feminin</option>
-                            <option value="Masculin">Masculin</option>
-                        </Select>
-                    </DivInput> 
-                    <Divbio>
-                    <Span>Biographie:</Span>
-                    <Bio 
-                            type="text" 
-                            onChange={e => this.props.infoUser(this.props.users, "bio", e.target.value)}  
-                            value={this.props.users.bio}
-                    />
-                    </Divbio>
-                    <Divtag>                    
-                        <Span>Tag:</Span>
-                        <Tag s/>
-                    </Divtag>
-                <button type="submit">valider</button>
-                </form>
-        );
+                        </Divbio>
+                        <Divtag>                    
+                            <Span>Tag:</Span>
+                            <Tag value="users"/>
+                        </Divtag>
+                    <button type="submit">valider</button>
+                    </form>
+            );
+        }
     }
 }
 function mapStateToProps(state){
-    // console.log("uusss",state.users.info)
+    console.log("uusss",state.users)
     return{
        users: state.users,
     }

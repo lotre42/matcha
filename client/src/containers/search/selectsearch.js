@@ -87,7 +87,7 @@ class Selectsearch extends Component {
                <Divspan>
                     <Span>Tag:</Span>
                 </Divspan>
-               <Tag search="search"/>
+               <Tag value="search"/>
                <button type="submit">valider</button>
             </form>
         )

@@ -40,7 +40,7 @@ class Tag extends Component {
                             <input
                                 key={t} 
                                 type="checkbox"
-                                onChange={this.props.search ? e => this.props.infoSearch(this.props.search, t, e.target.checked) : e => this.props.infoUser(this.props.users, t, e.target.checked)} 
+                                onChange={this.props.value=="search" ? e => this.props.infoSearch(this.props.search, t, e.target.checked) : e => this.props.infoUser(this.props.users, t, e.target.checked, "tag")} 
                                 checked={this.props.users[t]} 
                             />
                             </Div>

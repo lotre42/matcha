@@ -108,10 +108,10 @@ class ImageUpload extends React.Component {
     // }
   
     render() {
-        if (this.props.image.profile_picture == undefined){
-            this.props.imgCreate(1);
-        }
-        console.log(this.props.image);
+        // if (this.props.image.profile_picture == undefined){
+        //     this.props.imgCreate(1);
+        // }
+        // console.log(this.props.image);
       return (
         // <p>coucou</p>
         // <DivPrincipal>
@@ -128,45 +128,45 @@ class ImageUpload extends React.Component {
             <H3>Image</H3>             
             <Fdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.profile_picture} width="200" height="200"/>
+                    <Img src={this.props.users.image.profile_picture} width="200" height="200"/>
                     <Label>Photo de Profil
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'profile_picture')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.users, 'profile_picture')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.picture_1} width="200" height="200"/>
+                    <Img src={this.props.users.image.picture_1} width="200" height="200"/>
                     <Label>Photo 1
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_1')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.users, 'picture_1')} 
                     /></Label>
                 </Blockdiv>
             </Fdiv>
             <Sdiv>
                  <Blockdiv>
-                    <Img src={this.props.image.picture_2} width="200" height="200"/>
+                    <Img src={this.props.users.image.picture_2} width="200" height="200"/>
                     <Label>Photo 2
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_2')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.users, 'picture_2')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.picture_3} width="200" height="200"/>
+                    <Img src={this.props.users.image.picture_3} width="200" height="200"/>
                     <Label>Photo 3
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_3')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.users, 'picture_3')} 
                     /></Label>
                 </Blockdiv>
                 <Blockdiv>
-                    <Img src={this.props.image.picture_4} width="200" height="200"/>
+                    <Img src={this.props.users.image.picture_4} width="200" height="200"/>
                     <Label>Photo 4
                     <Input
                         type="file" 
-                        onChange={(e)=>this.props.imgInfo(e, this.props.image, 'picture_4')} 
+                        onChange={(e)=>this.props.imgInfo(e, this.props.users, 'picture_4')} 
                     /></Label>
                 </Blockdiv>
             </Sdiv>
@@ -177,9 +177,8 @@ class ImageUpload extends React.Component {
   }
 
 function mapStateToProps(state){
-    console.log("uusss",state.img)
     return{
-       image: state.img,
+        users: state.users,
     }
 }
 

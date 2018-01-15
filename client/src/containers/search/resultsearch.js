@@ -26,37 +26,45 @@ const Info = styled.p`
 font-weight: ${props => props.name ? 'bold' : ''};
 text-align: center;
 `;
+const sInfo = styled.span`
+font-weight: ${props => props.name ? 'bold' : ''};
+text-align: center;
+`;
 const TAG = styled.button`
 background: white;
 color: palevioletred;
 border: 2px solid palevioletred;
 border-radius: 3px;
 `;
-
+// const Div = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+// `;
 class Result extends Component {
     render () {
+        console.log("p",this.props)
         let tab = [];
         for(let key in this.props.resultstag) {
             tab.push(key);
                 }
         return (
-                <Block>
-                    <Img src={this.props.resultsinfo.image} width="200" height="200"/>
-                    <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
-                    <Info>Age:{this.props.resultsinfo.age}ans <br />Sexe:{this.props.resultsinfo.sexe}</Info>
-                    <Info>Distance:{this.props.resultsinfo.distance} &nbsp;&nbsp; Orientation:{this.props.resultsinfo.orientation}</Info>
-                    {tab.map(t => {
-                                return <span key={t}><TAG>{t}</TAG></span>
-                            })}
-                </Block>
+                    <Block>
+                        <Img src={this.props.resultsinfo.image} width="200" height="200"/>
+                        <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
+                        <sInfo>Age: {this.props.resultsinfo.age} ans <br />Sexe: {this.props.resultsinfo.sexe}</sInfo><br />
+                        <sInfo>Distance: {this.props.resultsinfo.distance}km <br /> Orientation: {this.props.resultsinfo.orientation}</sInfo>
+                        {tab.map(t => {
+                                    return <span key={t}><TAG>{t}</TAG></span>
+                                })}
+                    </Block>
         )
     }
 }
-function mapStateToProps(state){
-    console.log("image",state.results)
-    return{
-       resultsinfo: state.results.info,
-       resultstag: state.results.tag,
-    }
-}
-export default connect(mapStateToProps)(Result)
+// function mapStateToProps(state){
+//     console.log("image",state.results)
+//     return{
+//        resultsinfo: state.results.info,
+//        resultstag: state.results.tag,
+//     }
+// }
+export default (Result)

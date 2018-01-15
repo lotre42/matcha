@@ -5,55 +5,76 @@ const END_POINT = "http://localhost:3000"
 
 
 export function createSearch(){
-    console.log("")
     let search = {"age": "18-25", "orientation": "Heterosexuel", "sexe": "Feminin", "distance": "10"}
      return function (dispatch){
              dispatch({type: AT_SEARCH.INFO, payload: search})
          }
  }
- export function createResult(){
-    console.log("")
-    let search = {"info":{},"tag":{}}
-     return function (dispatch){
-             dispatch({type: AT_SEARCH.UPDATE, payload: search})
-         }
- }
+//  export function createResult(){
+//     console.log("")
+//     let search = {"info":{},"tag":{}}
+//      return function (dispatch){
+//              dispatch({type: AT_SEARCH.UPDATE, payload: search})
+//          }
+//  }
  export function readUser(id){
     console.log("")
      return function (dispatch){
+        let ret = {
+            "info":{        "username": "Lotre",
+                            "nom": "Ahantar",
+                            "prenom": "karim",
+                            "email": "k.ahantar@yahoo.fr",
+                            "bio": "",
+                            "sexe": "",
+                            "orientation": "",
+                            "age": "",
+                    },
+            "tag":{"Sport": false,
+            "Music": false,
+             "Geek":false,
+              "Tatouage":false,
+               "Bouffe":false,
+                "Etudiant":false,
+                 "Cinema":false,
+                  "Voyage":false,
+                   "Feigant":false,
+                    "Litterature":false,
+                     "Shopping":false},
+            "image":{"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
+                }
          axios({
     method: 'get',
     url: `${END_POINT}/id`,
     params: {"id": "5a578c0431a7e9498aaa9bda"}
     })
-    .then((response) =>{
-        console.log("id", response.data)
-             dispatch({type: AT_USERS.READ, payload: response.data})
-         })
-     }
+    // .then((response) =>{
+
+    //  }
+    dispatch({type: AT_USERS.READ, payload: ret})    
  }
 
    
-export function imgCreate(id){
-    let image = {"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
-    return function (dispatch){
-//         axios({
-//    method: 'get',
-//    url: `${END_POINT}/user`,
-//    params: {id}
-//    })
-//    .then((response) =>{
-            dispatch({type: AT_IMG.INFO, payload: image})
-        // })
-    }
+// export function imgCreate(id){
+//     let image = {"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
+//     return function (dispatch){
+// //         axios({
+// //    method: 'get',
+// //    url: `${END_POINT}/user`,
+// //    params: {id}
+// //    })
+// //    .then((response) =>{
+//             dispatch({type: AT_IMG.INFO, payload: image})
+//         // })
+//     }
 }
 
 
-export function infoUser(state, info, value){
+export function infoUser(state, info, value, methode){
     return function (dispatch){
-    let ret = {...state}
+    let ret = {...state};
     // if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
-    ret[info] = value
+    ret[methode][info] = value
     dispatch({type: AT_USERS.INFO_USER, payload: ret})
     }
     }
@@ -61,7 +82,6 @@ export function infoUser(state, info, value){
     export function infoSearch(state, info, value){
         return function (dispatch){
         let ret = {...state}
-        console.log("ret",ret)
         // if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
         ret[info] = value
         dispatch({type: AT_SEARCH.INFO, payload: ret})
@@ -74,29 +94,66 @@ export function imgInfo(e, props, image){
     let file = e.target.files[0];
     let ret = {...props}
     reader.onloadend = () => {
-        ret[image] = reader.result;
-        dispatch({type: AT_IMG.INFO, payload: ret})
+        ret.image[image] = reader.result;
+        dispatch({type: AT_USERS.INFO_USER, payload: ret})
     }
     reader.readAsDataURL(file)
     const formData = new FormData();
     formData.append(image, file);
-    axios.post(`${END_POINT}/upload`, formData, {
-    headers: { 'content-type': 'multipart/form-data' }
-    })
+    // axios.post(`${END_POINT}/upload`, formData, {
+    // headers: { 'content-type': 'multipart/form-data' }
+    // })
     }
 }
 
-export const createUser = (ret) => axios({
-    method: 'get',
-    url: `${END_POINT}/users`,
-    params: ret
+export function  createUser(ret){
+    return function (dispatch){
+        axios({ method: 'get',
+        url: `${END_POINT}/users`,
+        data: ret
     }).then((response) =>{
-    // if (response.data == 'ok')
-    // browserHistory.push('/info')
-    })
+      
+            })
+            let user = {
+                "info":{        "username": "Lotre",
+                                "nom": "Ahantar",
+                                "prenom": "karim",
+                                "email": "k.ahantar@yahoo.fr",
+                                "bio": "",
+                                "sexe": "",
+                                "orientation": "",
+                                "age": "",
+                        },
+                "tag":{"Sport": false,
+                "Music": false,
+                 "Geek":false,
+                  "Tatouage":false,
+                   "Bouffe":false,
+                    "Etudiant":false,
+                     "Cinema":false,
+                      "Voyage":false,
+                       "Feigant":false,
+                        "Litterature":false,
+                         "Shopping":false},
+                "image":{"profile_picture": "../../avatar.png", "picture_1": "../../avatar.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
+                    }
+                dispatch({type: AT_USERS.INFO_USER , payload: user})
+                // if (response.data == "ok")
+                     browserHistory.push('/info')
+    }
+}
+
+// export const createUser = (ret) =>  {
+// //     method: 'get',
+// //     url: `${END_POINT}/users`,
+// //     params: ret
+// //     }).then((response) =>{
+//     // if (response.data == 'ok')
+//         browserHistory.push('/connexion')}
+//     // })}
 
 export function  updateUser(props, event){
-    console.log("props", props)
+    console.log("PROPS", props)
     // let user = props.users;
     // let tag = props.tags;
     event.preventDefault()
@@ -112,7 +169,6 @@ export function  updateUser(props, event){
 }
 
 export function  updateSearch(props, event){
-    console.log("props", props)
     // let user = props.users;
     // let tag = props.tags;
     event.preventDefault()
@@ -121,8 +177,39 @@ export function  updateSearch(props, event){
     //     url: `${END_POINT}/search`,
     //     params: props
     // }).then((response) =>{
-        let ret = {"info":{"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5mm", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-        "tag":{"Sport": "checked", "Music": "checked"}}
+        let ret = {"1":{
+                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                        "tag": {"Sport": "checked", "Music": "checked"}
+                        },
+                    "2":{
+                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                        "tag": {"Sport": "checked", "Music": "checked"}
+                        },
+                        "5":{
+                            "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                            "tag": {"Sport": "checked", "Music": "checked"}
+                            },
+                            "3":{
+                                "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                                "tag": {"Sport": "checked", "Music": "checked"}
+                                },
+                                "4":{
+                                    "info": {"nom": "luc", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                                    "tag": {"Sport": "checked", "Music": "checked"}
+                                    },
+                                    "6":{
+                                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                                        "tag": {"Sport": "checked", "Music": "checked"}
+                                        },
+                                        "8":{
+                                            "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                                            "tag": {"Sport": "checked", "Music": "checked"}
+                                            },
+                                            "9":{
+                                                "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                                                "tag": {"Sport": "checked", "Music": "checked"}
+                                                }
+                  }
         // console.log("retour", response.data)
             dispatch({type: AT_SEARCH.UPDATE , payload: ret})
         // })
