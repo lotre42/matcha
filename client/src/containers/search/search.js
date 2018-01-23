@@ -4,9 +4,12 @@ import Logo from '../../components/logo'
 import Menu from '../../components/menu'
 import Selectsearch from './selectsearch'
 import Result from './resultsearch'
-import { createResult } from '../../actions/index'
+// import { createResult } from '../../actions/index'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
+import { infoProfil } from '../../actions/search'
+
+
 
 const Div = styled.div`
 `;
@@ -18,7 +21,7 @@ const Divresult = styled.div`
 class Search extends Component {
     render () {
       
-        function isEmpty(obj) {
+        function Empty(obj) {
             for(var key in obj) {
                 if(obj.hasOwnProperty(key))
                     return true;
@@ -39,24 +42,24 @@ class Search extends Component {
                 <Logo />
                 <Selectsearch />
                 <Divresult>
-                {isEmpty(tab) ? tab.map(t => {
+                {Empty(tab) ? tab.map(t => {
                     return  <Result key={t} resultsinfo={this.props.results[t].info} resultstag={this.props.results[t].tag}/>
                     // <span key={t}><TAG>{t}</TAG></span>
-                }) : isEmpty(tab)}
+                }) : Empty(tab)}
                 </Divresult>
             </Div>
         )
     }
 }
 function mapStateToProps(state){
-    console.log("image",state.results)
+    console.log("image",state.profil)
     return{
        results: state.results,
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        ...bindActionCreators({createResult}, dispatch)
+        ...bindActionCreators({infoProfil}, dispatch)
     };
 };
 

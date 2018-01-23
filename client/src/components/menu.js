@@ -37,9 +37,10 @@ class Menu extends Component {
         return (
             <nav>
     <UL>
-      <LI><A onClick={e => browserHistory.push('/profil')}>Mon Profil</A></LI>
+      <LI><A onClick={e => browserHistory.push('/popularity')}>Popularité</A></LI>
       <LI><A onClick={e => browserHistory.push('/search')}>Match</A></LI>
       <LI><A onClick={e => browserHistory.push('/info')}>Mes Informations</A></LI>
+      <LI><A onClick={e => browserHistory.push('/messages')}>Messages</A></LI>      
       <LI><A href="#">Deconnexion</A></LI>
     </UL>
 </nav>

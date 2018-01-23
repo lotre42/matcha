@@ -3,7 +3,7 @@ import {AT_USERS, AT_TAG, AT_IMG, AT_SEARCH} from './actions-types'
 import {browserHistory} from 'react-router'
 const END_POINT = "http://localhost:3000"
 
-
+/*
 export function createSearch(){
     let search = {"age": "18-25", "orientation": "Heterosexuel", "sexe": "Feminin", "distance": "10"}
      return function (dispatch){
@@ -230,4 +230,4 @@ export function  checkConnexion(user){
         }
         })
     }
-}
+}*/

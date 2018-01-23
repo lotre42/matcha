@@ -12,6 +12,25 @@ export const AT_SEARCH={
     INFO: "INFO_SEARCH",
 }
 
+export const AT_LIKE={
+    WHO: "WHO_LIKE",
+    // INFO: "INFO_SEARCH",
+}
+export const AT_PROFIL={
+    INFO: "INFO_PROFIL",
+    CHANGE: "CHANGE_IMG",
+    // INFO: "INFO_SEARCH",
+}
+
+export const AT_VIEW={
+    WHO: "WHO_VIEW",
+    // INFO: "INFO_SEARCH",
+}
+export const AT_MATCH={
+    WHO: "WHO_MATCH",
+    // INFO: "INFO_SEARCH",
+}
+
 export const AT_IMG={
     UPDATE: "UPDATE_IMG",
     INFO: "INFO_IMG",

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { createResult } from '../../actions/index'
+// import { createResult } from '../../actions/index'
 import {bindActionCreators} from 'redux'
-
+import { infoProfil } from '../../actions/search'
 
 
 const Block = styled.div`
@@ -42,13 +42,14 @@ border-radius: 3px;
 // `;
 class Result extends Component {
     render () {
-        console.log("p",this.props)
+        // console.log("p",this.props)
         let tab = [];
         for(let key in this.props.resultstag) {
             tab.push(key);
                 }
         return (
                     <Block>
+                        {/* <button onClick={e => searchProfil(this.props.infoProfil)}>Acceder à son profil</button> */}
                         <Img src={this.props.resultsinfo.image} width="200" height="200"/>
                         <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
                         <sInfo>Age: {this.props.resultsinfo.age} ans <br />Sexe: {this.props.resultsinfo.sexe}</sInfo><br />
@@ -60,11 +61,17 @@ class Result extends Component {
         )
     }
 }
-// function mapStateToProps(state){
-//     console.log("image",state.results)
-//     return{
-//        resultsinfo: state.results.info,
-//        resultstag: state.results.tag,
-//     }
-// }
-export default (Result)
+
+function mapStateToProps(state){
+    console.log("image",state)
+    return{
+       results: state.results,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        ...bindActionCreators({infoProfil}, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Result)

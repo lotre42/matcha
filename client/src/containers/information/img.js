@@ -4,8 +4,8 @@ import FormData from 'form-data';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {imgCreate} from '../../actions/index'
-import {imgInfo} from '../../actions/index'
+// import {imgCreate} from '../../actions/index'
+import {imgInfo} from '../../actions/user'
 
 const Img = styled.img`
  src : ${props => props.src};
@@ -184,7 +184,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = dispatch => {
     return {
-        ...bindActionCreators({imgCreate, imgInfo}, dispatch)
+        ...bindActionCreators({imgInfo}, dispatch)
     };
 };
 

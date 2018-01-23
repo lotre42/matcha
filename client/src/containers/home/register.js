@@ -1,7 +1,7 @@
 import React from'react'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {createUser} from '../../actions/index'
+import {createUser} from '../../actions/user'
 import {Link} from 'react-router'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'

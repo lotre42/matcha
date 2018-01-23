@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import Infoprofil from './infoprofil';
 import Logo from '../../components/logo'
-import styled from 'styled-components'
 import Menu from '../../components/menu'
-import Myprofil from '../../containers/profil/my_profil'
+import styled from 'styled-components'
 
 class Profil extends Component {
     render () {
@@ -10,10 +10,10 @@ class Profil extends Component {
             <div>
                 <Menu />
                 <Logo />
-                <Myprofil />
+                <Infoprofil />
             </div>
         )
     }
 }
 
-export default Profil   
+export default Profil

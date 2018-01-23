@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 // import {updateTag} from '../../actions/index'
 import {readUser} from '../actions/index'
-import { infoUser, infoSearch } from '../actions/index'
+import { infoUser } from '../actions/user'
+import { infoSearch } from '../actions/search'
+
 
 const Div = styled.div`
     display: flex;

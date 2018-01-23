@@ -2,11 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'
-import {infoUser} from '../../actions/index'
-import {updateUser} from '../../actions/index'
-import {readUser} from '../../actions/index'
+import { infoUser , updateUser, readUser } from '../../actions/user'
 import {bindActionCreators} from 'redux'
-import { isNil } from 'lodash';
 import Tag from '../tag'
 
 import axios from 'axios'
@@ -66,6 +63,7 @@ const Span = styled.span`
 `;
 const H3= styled.h3`
 color: rgb(87,141,210);
+font-family: Mothproofscriptregular;
 `;
 class Info extends React.Component {
     render(){

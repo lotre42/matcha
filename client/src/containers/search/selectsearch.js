@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {bindActionCreators} from 'redux'
-import { updateSearch, infoSearch, createSearch } from '../../actions/index'
+import { updateSearch, infoSearch, createSearch } from '../../actions/search'
 import Tag from '../tag'
 
 
