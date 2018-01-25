@@ -1,13 +1,15 @@
 let mysql      = require('mysql')
-
-let connection = mysql.createConnection({
+let con = mysql.createConnection({
   host     : 'localhost',
   port     : 3306,
-  user     : 'matcha',
+  user     : 'root',
   password : '27092709',
   database : 'matcha'
 })
 
-connection.connect()
+con.connect((err) => {
+  if (err)
+    console.log(err)
+})
 
-module.exports = connection
+module.exports = con

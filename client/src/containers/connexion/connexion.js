@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {checkConnexion} from '../../actions/index'
+import {checkConnexion} from '../../actions/user'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'
 import {browserHistory} from 'react-router'
@@ -29,7 +29,7 @@ border-radius: 3px;
 `;
 const formConfig = {
     form: "checkConnexionForm",
-    fields: ['login', 'password']
+    fields: ['username', 'password']
 }
 class Connexion extends Component {
     render () {
@@ -37,7 +37,7 @@ class Connexion extends Component {
         return (
             <Wrapper>
                  <form onSubmit={handleSubmit(this.checkConnexion.bind(this))}>
-                    <Input type="text" placeholder="" {...fields.login}/>
+                    <Input type="text" placeholder="" {...fields.username}/>
                     <Input type="text" placeholder="" {...fields.password}/>
                     <Button type="submit">Valider</Button>
                  </form>

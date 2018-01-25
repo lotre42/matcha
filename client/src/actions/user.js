@@ -10,9 +10,12 @@ export function  checkConnexion(user){
             url: `${END_POINT}/login`,
             params: user
     }).then((response) =>{
+        let ret = {"info": {}, "tag": {}, "img": {}};
+        ret.info = {...response.data}
+        console.log("response", ret)
         if(response.data)
         {
-            dispatch({type: AT_USERS.CHECK , payload: response.data})
+            dispatch({type: AT_USERS.CHECK , payload: ret})
             browserHistory.push('/info')
         }
         })
@@ -46,9 +49,9 @@ export function  createUser(ret){
     return function (dispatch){
         axios({ method: 'post',
         url: `${END_POINT}/users`,
-        data: user
+        data: ret
     }).then((response) =>{
-      
+      console.log("probleme",response.data)
             })
                 dispatch({type: AT_USERS.INFO_USER , payload: user})
                 // if (response.data == "ok")

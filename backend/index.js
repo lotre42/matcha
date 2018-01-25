@@ -3,143 +3,119 @@ const cors = require('cors');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const pgp = require('pg-promise')();
+let set = require('./config/setup');
+let con = require('./config/db');
+let bcrypt = require('bcrypt');
 
 const upload = multer({
     dest: 'uploads/'
 });
 const app = express();
-
-const init = async () => {
-    const cn
-     = {
-      host: '95.85.22.142',
-      // port: 5432,
-      database: 'matcha',
-      user: 'matcha',
-      password: 'matcha',
-    };
+// con.connect(function(err) {
+    // if (err) throw err;
+//   });
+// const init = async () => {
+//     const cn = {
+//       host: '95.85.22.142',
+//       // port: 5432,
+//       database: 'matcha',
+//       user: 'matcha',
+//       password: 'matcha',
+//     };
   
-    try {
-      const db = pgp(cn);
-      db.connect();
-      db.none(`CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR NOT NULL,
-        email VARCHAR NOT NULL,
-        password VARCHAR NOT NULL,
-        prenom VARCHAR NOT NULL,
-        nom VARCHAR NOT NULL,
-        sexe VARCHAR,
-        orientation VARCHAR DEFAULT 'bisexual',
-        bio TEXT,
-        age INTEGER,
-        profil_picture VARCHAR DEFAULT '/uploads/null',
-        picture_1 VARCHAR DEFAULT '/uploads/null',
-        picture_2 VARCHAR DEFAULT '/uploads/null',
-        picture_3 VARCHAR DEFAULT '/uploads/null',
-        picture_4 VARCHAR DEFAULT '/uploads/null',
-        profile_picture VARCHAR DEFAULT '/uploads/null',
-        Sport VARCHAR NOT NULL,
-        Music VARCHAR NOT NULL,
-        Geek VARCHAR NOT NULL,
-        Tatouage VARCHAR NOT NULL,
-        Bouffe VARCHAR NOT NULL,
-        Etudiant VARCHAR NOT NULL,
-        Voyage VARCHAR NOT NULL,
-        Feignant VARCHAR NOT NULL,
-        Litterature VARCHAR NOT NULL,
-        Shopping VARCHAR NOT NULL
-      )`);
-      return(db);
-    }
-        catch (err) {
-            console.log(err);
-        }
-  };
+//     try {
+//       const db = pgp(cn);
+//       db.connect();
+//       db.none(`CREATE TABLE IF NOT EXISTS users (
+//         id SERIAL PRIMARY KEY,
+//         username VARCHAR NOT NULL,
+//         email VARCHAR NOT NULL,
+//         password VARCHAR NOT NULL,
+//         prenom VARCHAR NOT NULL,
+//         nom VARCHAR NOT NULL,
+//         sexe VARCHAR,
+//         orientation VARCHAR DEFAULT 'bisexual',
+//         bio TEXT,
+//         age INTEGER,
+//         profil_picture VARCHAR DEFAULT '/uploads/null',
+//         picture_1 VARCHAR DEFAULT '/uploads/null',
+//         picture_2 VARCHAR DEFAULT '/uploads/null',
+//         picture_3 VARCHAR DEFAULT '/uploads/null',
+//         picture_4 VARCHAR DEFAULT '/uploads/null',
+//         profile_picture VARCHAR DEFAULT '/uploads/null',
+//         Sport VARCHAR NOT NULL,
+//         Music VARCHAR NOT NULL,
+//         Geek VARCHAR NOT NULL,
+//         Tatouage VARCHAR NOT NULL,
+//         Bouffe VARCHAR NOT NULL,
+//         Etudiant VARCHAR NOT NULL,
+//         Voyage VARCHAR NOT NULL,
+//         Feignant VARCHAR NOT NULL,
+//         Litterature VARCHAR NOT NULL,
+//         Shopping VARCHAR NOT NULL
+//       )`);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 
-const db = init();
+// init();
+// const keys = require('./config/keys');
+
+// require('./models/User');
+
+
+
+// mongoose.connect(keys.mongoURI);
+// var User = mongoose.model('users');
+
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.post('/users', function(req, res){
-    
-    // var name = req.body.username;
-      console.log("body", req.body);
-      let username = req.body.username;
-      let sql = `UPDATE users SET username = ${username}`;
-      db.none(sql, username, (err, res) => {
-          if (err){
-              console.log(err);
-          }
-          console.log(res);
-      });
-    // User.findOne({"info.username": name}, function(err, users) {
-    //     if (err) {
-    //         return(res.send('marche pas 1!!!'));
-    //     }
-    //     if (!users) {
-    //         new User({
-    //             info: {
-    //                 username: req.body.username,
-    //                 nom: req.body.nom,
-    //                 prenom: req.body.prenom,
-    //                 email: req.body.email,
-    //                 password: req.body.password,
-    //                 bio: "toto",
-    //                 sexe: "tata",
-    //                 orientation: "titi",
-    //                 age: "tutu"
-    //             }
-    //         }).save();
-    //         return(res.send('He registred'));            
-    //     }
-    //     else {
-    //         console.log("Rayan le bosse");
-    //         return(res.send('already register'));
-    //     }
-    // });
+    con.query('SELECT * FROM users WHERE email = ? OR username = ?', [req.body.email, req.body.username], (err, rows, result) => {
+        if (rows[0] && (rows[0]['email'] || rows[0]['pseudo'])){
+            res.json('Username ou email utilisé');
+        }
+        else
+        {
+            let tag = "INSERT INTO tag SET Sport = ?, Music = ?, Geek = ?, Tatouage = ?, Bouffe = ?, Etudiant = ?, Cinema = ?, Voyage = ?, Feignant = ?, Litterature = ?, Shopping = ?"; 
+           // let values = ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'] 
+            con.query(tag, ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'], function (err, result) {
+                if (err) throw err;
+            });  
+            let hash = bcrypt.hashSync(req.body.password, 12);  
+            let user = "INSERT INTO users SET username = ?, nom = ?, prenom = ?, email = ?, password = ?";  
+            con.query(user, [req.body.username, req.body.nom, req.body.prenom, req.body.email, hash], function (err, result) {
+                if (err) throw err;
+            });
+            let img = "INSERT INTO img SET picture_profil = ?, picture_1 = ?, picture_2 = ?, picture_3 = ?, picture_4 = ?";  
+            con.query(img, ["../../avatar.png", "../../avatar.png", "../../avatar.png", "../../avatar.png", "../../avatar.png"], function (err, result) {
+                if (err) throw err;
+            }); 
+        }
+    })
 });
 
 app.get('/id', function(req, res) {
 
-    // var ID = req.query.id;
-    // console.log("je rentre ici");
-    // User.findById({_id: ID}, function(err, users) {
-    //     if (err){
-    //          return(res.send('Error'));
-    //     }
-    //     if (!users){
-    //         console.log('pas trouver');
-    //         return(res.send('pas trouver'));
-    //     }
-    //     else {
-    //         console.log('user = ', users);
-    //         return(res.send(users));
-    //     }
-    // })
 })
 
 app.post('/login', function(req, res){
-
-    // console.log("req=", req.query.login);
-    // var login = req.body.login;
-    // User.findOne({"info.username": login}, function(err, users) {
-    //     if (err){
-    //         console.log('Error');
-    //         return(res.send('Error'));
-    //     }
-    //     if (!users) {
-    //         console.log('Je trouve R');
-    //         return(res.send('non'))
-    //     }
-    //     else {
-    //         console.log('je les trouver');
-    //         console.log('users = ', users);
-    //         return(res.send(users));
-    //     }
-    // })
+	con.query('SELECT * FROM users WHERE username = ?', [req.query.username], (err, user, result) => {
+        if (user[0] && bcrypt.compareSync(req.query.password, user[0].password)){
+            let ret = {"info": {...user[0]}, "tag": {}, "img": {}}            
+            con.query('SELECT * FROM tag WHERE id = ?', [user[0].id], (err, tags, result) => {console.log({...tag[0]})
+            ret.tag = {...tags[0]}})
+            con.query('SELECT * FROM img WHERE id = ?', [user[0].id], (err, imgs, result) => {ret.img = {...img[0]}})
+            console.log(ret)
+            res.json(ret)
+        }
+        else{
+            res.json("Combinaison incorrect")
+        }
+    })
 });
 
 app.put('/info/:id', function(req, res){
