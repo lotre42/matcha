@@ -16,12 +16,12 @@ con.query(user, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });
-var img = "CREATE TABLE IF NOT EXISTS img (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, picture_profil VARCHAR(255) NOT NULL, picture_1 VARCHAR(255) NOT NULL, picture_2 VARCHAR(100) NOT NULL, picture_3 VARCHAR(255) NOT NULL, picture_4 VARCHAR(255) NOT NULL)"
+var img = "CREATE TABLE IF NOT EXISTS img (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, profile_picture VARCHAR(255) NOT NULL, picture_1 VARCHAR(255) NOT NULL, picture_2 VARCHAR(100) NOT NULL, picture_3 VARCHAR(255) NOT NULL, picture_4 VARCHAR(255) NOT NULL)"
 con.query(img, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });
-var tag = "CREATE TABLE IF NOT EXISTS tag (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, Sport VARCHAR(10) NOT NULL, Music VARCHAR(10) NOT NULL, Geek VARCHAR(10) NOT NULL, Tatouage VARCHAR(10) NOT NULL, Bouffe VARCHAR(10) NOT NULL, Etudiant VARCHAR(10) NOT NULL, Cinema VARCHAR(10) NOT NULL, Voyage VARCHAR(10) NOT NULL, Feignant VARCHAR(10) NOT NULL, Litterature VARCHAR(10) NOT NULL, Shopping VARCHAR(10) NOT NULL)"
+var tag = "CREATE TABLE IF NOT EXISTS tag (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, Sport tinyint (1), Music tinyint (1), Geek tinyint (1), Tatouage tinyint (1), Bouffe tinyint (1), Etudiant tinyint (1), Cinema tinyint (1), Voyage tinyint (1), Feignant tinyint (1), Litterature tinyint (1), Shopping tinyint (1))"
 con.query(tag, function (err, result) {
   if (err) throw err;
   console.log("Table created");

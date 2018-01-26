@@ -10,12 +10,13 @@ export function  checkConnexion(user){
             url: `${END_POINT}/login`,
             params: user
     }).then((response) =>{
-        let ret = {"info": {}, "tag": {}, "img": {}};
-        ret.info = {...response.data}
-        console.log("response", ret)
+        // console.log("response", response.data)
         if(response.data)
         {
-            dispatch({type: AT_USERS.CHECK , payload: ret})
+            let token = response.data;
+            localStorage.setItem('token', token);
+            let payloadtoken = JSON.parse(atob(token.split('.')[1]));   
+            dispatch({type: AT_USERS.CHECK , payload: payloadtoken.user})
             browserHistory.push('/info')
         }
         })
@@ -23,53 +24,31 @@ export function  checkConnexion(user){
 }
 
 export function  createUser(ret){
-    let user = {
-        "info":{        "username": "Lotre",
-                        "nom": "Ahantar",
-                        "prenom": "karim",
-                        "email": "k.ahantar@yahoo.fr",
-                        "bio": "",
-                        "sexe": "",
-                        "orientation": "",
-                        "age": "",
-                },
-        "tag":{"Sport": false,
-        "Music": false,
-         "Geek":false,
-          "Tatouage":true,
-           "Bouffe":false,
-            "Etudiant":false,
-             "Cinema":false,
-              "Voyage":false,
-               "Feigant":false,
-                "Litterature":false,
-                 "Shopping":false},
-        "image":{"profile_picture": "../../avatar.png", "picture_1": "../../bogoss.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
-            }
     return function (dispatch){
         axios({ method: 'post',
         url: `${END_POINT}/users`,
         data: ret
     }).then((response) =>{
-      console.log("probleme",response.data)
-            })
-                dispatch({type: AT_USERS.INFO_USER , payload: user})
-                // if (response.data == "ok")
-                     browserHistory.push('/info')
+        if (response.data = "ok")
+            browserHistory.push('/connexion')
+        })
     }
 }
 
 export function  updateUser(props, event){
-    console.log("PROPS", props)
-    // let user = props.users;
-    // let tag = props.tags;
     event.preventDefault()
     return function (dispatch){
+        let token = localStorage.getItem('token');
+        let config = {};
+         if (token){
+            config.headers = { 'Authorization': 'Bearer' + token }
+         }
         axios({ method: 'put',
         url: `${END_POINT}/info`,
-        params: props
+        params: props,
+        headers: { 'Authorization': token }
     }).then((response) =>{
-        // console.log("retour", response.data)
+        console.log(response.data)
             dispatch({type: AT_USERS.UPDATE , payload: props})
         })
     }
@@ -77,6 +56,7 @@ export function  updateUser(props, event){
 
 export function infoUser(state, info, value, methode){
     return function (dispatch){
+        console.log("cc", value)
     let ret = {...state};
     // if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
     ret[methode][info] = value
@@ -96,46 +76,16 @@ export function imgInfo(e, props, image){
     reader.readAsDataURL(file)
     const formData = new FormData();
     formData.append(image, file);
-    // axios.post(`${END_POINT}/upload`, formData, {
-    // headers: { 'content-type': 'multipart/form-data' }
-    // })
+    axios.post(`${END_POINT}/upload`, formData, {
+    headers: { 'content-type': 'multipart/form-data' }
+    })
     }
 }
 
 export function readUser(id){
-    console.log("")
      return function (dispatch){
-        let ret = {
-            "info":{        "username": "Lotre",
-                            "nom": "Ahantar",
-                            "prenom": "karim",
-                            "email": "k.ahantar@yahoo.fr",
-                            "bio": "",
-                            "sexe": "",
-                            "orientation": "",
-                            "age": "",
-                    },
-            "tag":{"Sport": false,
-            "Music": false,
-             "Geek":false,
-              "Tatouage":false,
-               "Bouffe":false,
-                "Etudiant":false,
-                 "Cinema":false,
-                  "Voyage":false,
-                   "Feigant": false,
-                    "Litterature":false,
-                     "Shopping":false},
-            "image":{"profile_picture": "../../avatar.png", "picture_1": "../../bogoss.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
-                }
-         axios({
-    method: 'get',
-    url: `${END_POINT}/id`,
-    params: {"id": "5a578c0431a7e9498aaa9bda"}
-    })
-    // .then((response) =>{
-
-    //  }
-    dispatch({type: AT_USERS.READ, payload: ret})    
+         let token = localStorage.getItem("token");
+         let ret = JSON.parse(atob(token.split('.')[1]));
+    dispatch({type: AT_USERS.READ, payload: ret.user})    
     }
 }

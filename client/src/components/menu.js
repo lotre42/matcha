@@ -33,6 +33,14 @@ background-color: rgb(87,141,210);
 `;
 
 class Menu extends Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+      }
+      handleClick() {
+        browserHistory.push('/')
+        localStorage.removeItem("token");
+      }
     render () {
         return (
             <nav>
@@ -41,7 +49,7 @@ class Menu extends Component {
       <LI><A onClick={e => browserHistory.push('/search')}>Match</A></LI>
       <LI><A onClick={e => browserHistory.push('/info')}>Mes Informations</A></LI>
       <LI><A onClick={e => browserHistory.push('/messages')}>Messages</A></LI>      
-      <LI><A href="#">Deconnexion</A></LI>
+      <LI><A onClick={this.handleClick}>Deconnexion</A></LI>
     </UL>
 </nav>
         )

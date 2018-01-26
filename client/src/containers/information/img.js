@@ -111,7 +111,7 @@ class ImageUpload extends React.Component {
         // if (this.props.image.profile_picture == undefined){
         //     this.props.imgCreate(1);
         // }
-        // console.log(this.props.image);
+        console.log("pb",this.props.users);
       return (
         // <p>coucou</p>
         // <DivPrincipal>

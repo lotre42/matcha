@@ -5,6 +5,7 @@ import Img from './Img'
 import Loc from '../loc'
 import styled from 'styled-components'
 import Menu from '../../components/menu'
+import {browserHistory} from 'react-router'
 
 
 const PhotoTag = styled.div`
@@ -23,18 +24,22 @@ color: rgb(87,141,210);
 
 class Information extends Component {
     render () {
-        return (
-            <div>
-                <Menu />
-                <Logo/>
-                <Info/>
-                {/* <PhotoTag> */}
-                {/* <Tag/> */}
-                <Img/>
-                {/* </PhotoTag> */}
-                <Loc />
-            </div>
-        )
+        if (localStorage.getItem("token")){
+            return (
+                <div>
+                    <Menu />
+                    <Logo/>
+                    <Info/>
+                    <Img/>
+                    <Loc />
+                </div>
+            )
+        }
+        else{
+            return(
+                <div>{browserHistory.push('/')}</div>
+            )
+        }
     }
 }
 

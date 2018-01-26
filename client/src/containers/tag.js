@@ -29,7 +29,8 @@ color: rgb(87,141,210);
 `;
 class Tag extends Component {
     render () {
-        let tag = ["Sport", "Music", "Geek", "Tatouage", "Bouffe", "Etudiant", "Cinema", "Voyage", "Feigant", "Litterature", "Shopping"]
+        console.log("tag", this.props.users)        
+        let tag = ["Sport", "Music", "Geek", "Tatouage", "Bouffe", "Etudiant", "Cinema", "Voyage", "Feignant", "Litterature", "Shopping"]
         // if (!this.props.users.Sport && !this.props.users.Music&&!this.props.users.Geek&&!this.props.users.Tatouage&&!this.props.users.Etudiant&&!this.props.users.Cinema&&!this.props.users.Voyage&&!this.props.users.Feignant&&!this.props.users.Litterature&&!this.props.users.Shopping)
         //          this.props.readUser(1)
         return (
@@ -43,7 +44,7 @@ class Tag extends Component {
                                 key={t} 
                                 type="checkbox"
                                 onChange={this.props.value=="search" ? e => this.props.infoSearch(this.props.search, t, e.target.checked) : e => this.props.infoUser(this.props.users, t, e.target.checked, "tag")} 
-                                checked={this.props.users[t]} 
+                                checked={this.props.value=="search" ? this.props.search[t] : this.props.users.tag[t]}
                             />
                             </Div>
                             )
