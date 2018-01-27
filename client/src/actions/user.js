@@ -29,12 +29,35 @@ export function  createUser(ret){
         url: `${END_POINT}/users`,
         data: ret
     }).then((response) =>{
-        if (response.data = "ok")
-            browserHistory.push('/connexion')
+        if (response.data){
+            let token = response.data;
+            localStorage.setItem('verif', token);
+            browserHistory.push('/connexion')                        
+        }        
         })
     }
 }
+export function  verif(){
+    const token = localStorage.getItem('verif');
+    return function (dispatch){
+        axios({ method: 'get',
+        url: `${END_POINT}/verifemail`,
+        headers: { 'Authorization': token }
+    })
+}
+}
 
+export function forget(e, email){
+    e.preventDefault()
+    console.log(email);
+    //     const token = localStorage.getItem('verif');
+//     return function (dispatch){
+//         axios({ method: 'get',
+//         url: `${END_POINT}/verifemail`,
+//         headers: { 'Authorization': token }
+//     })
+// }
+}
 export function  updateUser(props, event){
     event.preventDefault()
     return function (dispatch){
@@ -48,15 +71,20 @@ export function  updateUser(props, event){
         params: props,
         headers: { 'Authorization': token }
     }).then((response) =>{
-        console.log(response.data)
-            dispatch({type: AT_USERS.UPDATE , payload: props})
+        if(response.data)
+        {
+            let token = response.data;
+            if (localStorage.getItem('token'))
+                localStorage.removeItem('token')
+            localStorage.setItem('token', token);
+        }
+        dispatch({type: AT_USERS.UPDATE , payload: props})
         })
     }
 }
 
 export function infoUser(state, info, value, methode){
     return function (dispatch){
-        console.log("cc", value)
     let ret = {...state};
     // if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
     ret[methode][info] = value

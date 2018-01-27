@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {checkConnexion} from '../../actions/user'
+import {checkConnexion, forget} from '../../actions/user'
 import styled from 'styled-components'
 import {reduxForm} from 'redux-form'
 import {browserHistory} from 'react-router'
@@ -41,6 +41,7 @@ class Connexion extends Component {
                     <Input type="text" placeholder="" {...fields.password}/>
                     <Button type="submit">Valider</Button>
                  </form>
+                 <Button onClick={this.props.forget}>Mot de passe oublie</Button>
             </Wrapper>
         )
     }

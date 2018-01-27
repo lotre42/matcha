@@ -8,7 +8,7 @@ import Result from './resultsearch'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import { infoProfil } from '../../actions/search'
-
+import {browserHistory} from 'react-router'
 
 
 const Div = styled.div`
@@ -20,7 +20,6 @@ const Divresult = styled.div`
 `;
 class Search extends Component {
     render () {
-      
         function Empty(obj) {
             for(var key in obj) {
                 if(obj.hasOwnProperty(key))
@@ -28,14 +27,11 @@ class Search extends Component {
             }
             return false;
         }
-        // if (isEmpty(this.props.results))
-        // {
-        //     this.props.createResult()
-        // }
         let tab = [];
         for(let key in this.props.results) {
             tab.push(key);
         }
+        if (localStorage.getItem("token")){
         return (
             <Div>
                 <Menu />
@@ -50,6 +46,10 @@ class Search extends Component {
             </Div>
         )
     }
+    else{
+        return(<div>{browserHistory.push('/')}</div>)
+    }
+}
 }
 function mapStateToProps(state){
     console.log("image",state.profil)

@@ -4,6 +4,7 @@ import Conversation from './conversation'
 import Logo from '../../components/logo'
 import Menu from '../../components/menu'
 import styled from 'styled-components'
+import {browserHistory} from 'react-router'
 
 const DIV = styled.div`
 display: flex;
@@ -15,6 +16,7 @@ font-family: Mothproofscriptregular;
 `;
 class Message extends Component {
     render () {
+        if (localStorage.getItem("token")){
         return (
             <div>
                 <Menu />
@@ -26,6 +28,12 @@ class Message extends Component {
                 </DIV>
             </div>
         )
+    }
+    else{
+        return(
+            <div>{browserHistory.push('/')}</div>
+        )
+    }
     }
 }
 
