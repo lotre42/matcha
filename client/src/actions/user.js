@@ -47,9 +47,9 @@ export function  verif(){
 }
 }
 
-export function forget(e, email){
-    e.preventDefault()
-    console.log(email);
+// export function forget(e, email){
+//     e.preventDefault()
+//     console.log(email);
     //     const token = localStorage.getItem('verif');
 //     return function (dispatch){
 //         axios({ method: 'get',
@@ -57,7 +57,7 @@ export function forget(e, email){
 //         headers: { 'Authorization': token }
 //     })
 // }
-}
+// }
 export function  updateUser(props, event){
     event.preventDefault()
     return function (dispatch){

@@ -41,7 +41,7 @@ class Connexion extends Component {
                     <Input type="text" placeholder="" {...fields.password}/>
                     <Button type="submit">Valider</Button>
                  </form>
-                 <Button onClick={this.props.forget}>Mot de passe oublie</Button>
+                 <Button onClick={e => browserHistory.push('/forgetpass')}>Mot de passe oublie</Button>
             </Wrapper>
         )
     }

@@ -101,7 +101,7 @@ app.get('/verifemail', (req, res) => {
 }
 });
 app.post('/forgetpass', (req, res) => {
-    console.log(req)
+    console.log(req.query[0])
 });
 
 app.post('/upload', upload.single('profile_picture'), (req, res) => {

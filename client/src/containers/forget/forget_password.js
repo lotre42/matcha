@@ -25,10 +25,7 @@ color: palevioletred;
 border: 1px solid palevioletred;
 border-radius: 3px;
 `;
-const formConfig = {
-    form: "checkConnexionForm",
-    fields: ['username', 'password']
-}
+
 class Forget extends Component {
     constructor(props) {
         super(props);
