@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const mailer = require('./mailer');
 
+
 const secret = "7nTx713Jo25A4hrlWQ3hsQPPIAd0yT";
 const upload = multer({
     dest: 'uploads/'
