@@ -56,13 +56,13 @@ class Selectsearch extends Component {
                         <Span>Orientation:</Span>
                 </Divspan>
                <DivDuo>
-                    <Select type="text" onChange={e => this.props.infoSearch(this.props.search, "age", e.target.value)}>
+                    <Select type="text" onChange={e => this.props.infoSearch(this.props.search, "age", e.target.value, "info")}>
                         <option  value="18-25">18-25</option>
                         <option value="25-35">25-35</option>
                         <option value="35-50">35-50</option>
                         <option value="50-99">50-99</option>
                     </Select>
-                    <Select onChange={e => this.props.infoSearch(this.props.search, "orientation", e.target.value)}>
+                    <Select onChange={e => this.props.infoSearch(this.props.search, "orientation", e.target.value, "info")}>
                             <option value="Homosexuel">Homosexuel</option>
                             <option  value="Bisexuel">Bisexuel</option>
                             <option value="Heterosexuel">Heterosexuel</option>
@@ -73,15 +73,15 @@ class Selectsearch extends Component {
                         <Span>Distance:</Span>
                 </Divspan>
                <DivDuo>
-                    <Select onChange={e => this.props.infoSearch(this.props.search, "sexe", e.target.value)}>
-                        <option value="Feminin">Feminin</option>
-                        <option value="Masculin">Masculin</option>
+                    <Select onChange={e => this.props.infoSearch(this.props.search, "sexe", e.target.value, "info")}>
+                        <option value="Feminin">Femme</option>
+                        <option value="Masculin">Homme</option>
                     </Select>
-                    <Select onChange={e => this.props.infoSearch(this.props.search, "distance", e.target.value)}>
-                        <option  value="10">10km</option>
-                        <option value="50">50km</option>
-                        <option value="100">100km</option>
-                        <option value="+">+100km</option>
+                    <Select onChange={e => this.props.infoSearch(this.props.search, "distance", e.target.value, "info")}>
+                        <option  value="20">Moins de 20km</option>
+                        <option value="50">Moins 50km</option>
+                        <option value="100">Moins 100km</option>
+                        <option value="50000">Peu importe</option>
                     </Select>
                </DivDuo>
                <Divspan>

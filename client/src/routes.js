@@ -5,6 +5,7 @@ import Information from './containers/information/information'
 import Popularity from './containers/popularity/popularity'
 import Profil from './containers/profil/profil'
 import Connexion from './containers/connexion/connexion'
+import Modifpass from './containers/modif/modif_password'
 import Message from './containers/message/message'
 import Forget from './containers/forget/forget_password'
 import Search from './containers/search/search'
@@ -22,6 +23,7 @@ class Routes extends Component {
                 <Route path="/verifemail" component={Verifemail}/>
                 <Route path="/popularity" component={Popularity}/>
                 <Route path="/forgetpass" component={Forget}/>
+                <Route path="/modifpass" component={Modifpass}/>
                 <Route path="/profil" component={Profil}/>                
                 <Route path="/connexion" component={Connexion}/>
                 <Route path="/messages" component={Message}/>

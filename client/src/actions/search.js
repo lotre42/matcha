@@ -42,17 +42,23 @@ export function infoProfil(){
  }
 
 export function createSearch(){
-    let search = {"age": "18-25", "orientation": "Heterosexuel", "sexe": "Feminin", "distance": "10"}
+    let search = {"info":
+                    {"age": "18-25", "orientation": "homosexuel", "sexe": "Femme", "distance": "20"},
+                    "tag": []
+}
      return function (dispatch){
              dispatch({type: AT_SEARCH.INFO, payload: search})
          }
  }
 
- export function infoSearch(state, info, value){
+ export function infoSearch(state, info, value, prop){
     return function (dispatch){
     let ret = {...state}
     // if (info == "username" || info == "nom" || info == "prenom" || info == "orientation" || info == "age" || info == "sexe" | info == "bio")
-    ret[info] = value
+    if (prop == "tag")
+        ret[prop].push(info+"=1")
+    else
+        ret[prop][info] = value
     dispatch({type: AT_SEARCH.INFO, payload: ret})
     }
 }
@@ -162,14 +168,17 @@ export function  searchLike(){
 export function  updateSearch(props, event){
     // let user = props.users;
     // let tag = props.tags;
+    console.log("sss", props)
     event.preventDefault()
+    let token = localStorage.getItem('token');
     return function (dispatch){
-    //     axios({ method: 'get',
-    //     url: `${END_POINT}/search`,
-    //     params: props
-    // }).then((response) =>{
+        axios({ method: 'get',
+        url: `${END_POINT}/search`,
+        params: props,
+        headers: { 'Authorization': token }
+    }).then((response) =>{
         let ret = {"1":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "Ville": "Mantes", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
                         "tag": {"Sport": "checked", "Music": "checked"}
                         },
                     "2":{
@@ -201,8 +210,8 @@ export function  updateSearch(props, event){
                                                 "tag": {"Sport": "checked", "Music": "checked"}
                                                 }
                   }
-        // console.log("retour", response.data)
+        console.log("retour", response.data)
             dispatch({type: AT_SEARCH.UPDATE , payload: ret})
-        // })
+        })
     }
 }
