@@ -75,7 +75,7 @@ class Selectsearch extends Component {
                <DivDuo>
                     <Select onChange={e => this.props.infoSearch(this.props.search, "sexe", e.target.value, "info")}>
                         <option value="Feminin">Femme</option>
-                        <option value="Masculin">Homme</option>
+                        <option value="Homme">Homme</option>
                     </Select>
                     <Select onChange={e => this.props.infoSearch(this.props.search, "distance", e.target.value, "info")}>
                         <option  value="20">Moins de 20km</option>

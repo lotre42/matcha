@@ -42,7 +42,7 @@ border-radius: 3px;
 // `;
 class Result extends Component {
     render () {
-        // console.log("p",this.props)
+        console.log("p",this.props.resultstag)
         let tab = [];
         for(let key in this.props.resultstag) {
             tab.push(key);
@@ -53,7 +53,7 @@ class Result extends Component {
                         <Img src={this.props.resultsinfo.image} width="200" height="200"/>
                         <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
                         <sInfo>Age: {this.props.resultsinfo.age} ans <br />Sexe: {this.props.resultsinfo.sexe}</sInfo><br />
-                        <sInfo>Distance: {this.props.resultsinfo.distance}km <br /> Orientation: {this.props.resultsinfo.orientation}</sInfo>
+                        <sInfo>Ville: {this.props.resultsinfo.ville} <br /> Orientation: {this.props.resultsinfo.orientation}</sInfo>
                         {tab.map(t => {
                                     return <span key={t}><TAG>{t}</TAG></span>
                                 })}

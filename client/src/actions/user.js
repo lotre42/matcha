@@ -62,10 +62,6 @@ export function  updateUser(props, event){
     event.preventDefault()
     return function (dispatch){
         let token = localStorage.getItem('token');
-        let config = {};
-         if (token){
-            config.headers = { 'Authorization': 'Bearer' + token }
-         }
         axios({ method: 'put',
         url: `${END_POINT}/info`,
         params: props,

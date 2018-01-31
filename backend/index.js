@@ -6,12 +6,17 @@ const multer = require('multer');
 const randomstring = require("randomstring");
 const set = require('./config/setup');
 const con = require('./config/db');
+const ascon = require('./config/db-async');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const mailer = require('./mailer');
 const geolib = require('geolib');
 const jsontransform = require('./jsontransform');
+const  mysql = require('mysql2/promise');
+const requete = require('./requete')
+const sorttab = require('./sorttab')
+
 // let test = require("./test")
 const secret = "7nTx713Jo25A4hrlWQ3hsQPPIAd0yT";
 const upload = multer({
@@ -91,31 +96,31 @@ app.get('/search', function(req, res){
                 test = test + "tag." + tag[i];                
         }
         test = test + " AND users.AGE >= ? AND users.AGE <= ? AND users.orientation = ? AND users.sexe = ?"
-        con.query(test,[info.age.split('-')[0], info.age.split('-')[1], info.orientation, info.sexe], (err, user, result) => {
-            let length = user.length;  
-            // console.log("tok",payloadtoken.user.info)
-            // console.log("len",length)          
-            // for (let i = 0; i < length; i++){
-            //     if ((geolib.isPointInCircle(
-            //         {latitude: user[i].lat, longitude: user[i].lon},
-            //         {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon},
-            //         info.distance * 1000
-            //     )) == false){
-            //         user.shift(i);
-            //     }
-            // }
-            let tab = []
-            for (let i = 0; i < length; i++){
-                let ret = jsontransform(user[i])
-                tab.push(ret);
+        const data = [info.age.split('-')[0], info.age.split('-')[1], info.orientation, info.sexe];
+        let requete = async () => {
+            let ret = []
+            const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake'});
+            const [tab, fields] = await connection.execute(test, data);
+            for (let i = 0; i < tab.length; i++){
+            const [img, fi] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id])
+                tab[i].image = img[0].profile_picture;
+                let res = jsontransform(tab[i]);
+                ret.push(res)
             }
-            res.send(tab)
-            
-            // con.query('SELECT profile_picture FROM img WHERE id = ?', [ret.info.id], (err, rows, result) => {
-            //     // ret.info.image = (rows[0].profile_picture);
-            //     res.json(ret);
-            // })
-        });
+            for (let i = 0; i < ret.length; i++){
+                if ((geolib.isPointInCircle(
+                    {latitude: ret[i].info.lat, longitude: ret[i].info.lon},
+                    {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon},
+                    info.distance * 1000
+                )) == false){
+                    ret.shift(i);
+                }
+            }
+            console.log("coucou")
+            sorttab(ret, "age");
+            res.send(ret)
+        }
+        requete();
     }
 });
 // app.put('/info', function(req, res){

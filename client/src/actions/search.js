@@ -211,7 +211,7 @@ export function  updateSearch(props, event){
                                                 }
                   }
         console.log("retour", response.data)
-            dispatch({type: AT_SEARCH.UPDATE , payload: ret})
+            dispatch({type: AT_SEARCH.UPDATE , payload: response.data})
         })
     }
 }
