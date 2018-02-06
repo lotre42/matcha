@@ -59,7 +59,20 @@ app.use(express.json());
 // });
 
 app.get('/profil', function(req, res) {
-console.log("coucou")
+    let requete = async () => {
+        let ret = {"info": {},
+                    "tag": {},
+                    "image":{"display": "", "profile_picture": "../../avatar.png", "picture_1": "../../bogoss.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
+        }
+        test = "Select * FROM users WHERE id = ?"
+        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake'});
+        const [info, fields] = await connection.execute(test, [req.query[0]]);
+        const [tag, field] = await connection.execute(test, [req.query[0]]);        
+        ret.info = info[0];
+        ret.tag = tag[0];
+        res.json(ret)
+        }
+    requete();
 })
 
 app.post('/login', function(req, res){
