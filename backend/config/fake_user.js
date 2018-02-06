@@ -18,7 +18,11 @@ var casual = require('casual')
                 "validation": 1,
                 "ville": casual.city,
                 "lon": casual.longitude,
-                "lat": casual.latitude
+                "lat": casual.latitude,
+                "vue": casual.integer(from = 0, to = 99),
+                "lik": casual.integer(from = 0, to = 99),
+                "pop": casual.integer(from = 0, to = 5),
+                
             }, 
             "tag": {
                 "Sport": casual.integer(from = 0, to = 1),

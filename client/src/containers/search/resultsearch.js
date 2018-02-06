@@ -13,7 +13,6 @@ width: 200px;
 border: 1.2px rgb(224, 226, 227) solid;
 border-radius: 10px;
 font-family: Mothproofscriptregular;
-
 `;
 const Img = styled.img`
  src : ${props => props.src};
@@ -42,33 +41,34 @@ border-radius: 3px;
 // `;
 class Result extends Component {
     render () {
-        console.log("p",this.props.resultstag)
         let tab = [];
         for(let key in this.props.resultstag) {
             tab.push(key);
                 }
         return (
+            <div>
                     <Block>
-                        {/* <button onClick={e => searchProfil(this.props.infoProfil)}>Acceder à son profil</button> */}
+                        <button onClick={e => infoProfil(this.props.resultsinfo.id)}>Acceder à son profil</button>
                         <Img src={this.props.resultsinfo.image} width="200" height="200"/>
                         <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
+                        <sInfo>Popularite: {this.props.resultsinfo.pop}</sInfo><br />
                         <sInfo>Age: {this.props.resultsinfo.age} ans <br />Sexe: {this.props.resultsinfo.sexe}</sInfo><br />
-                        <sInfo>Ville: {this.props.resultsinfo.ville} <br /> Orientation: {this.props.resultsinfo.orientation}</sInfo>
+                        <sInfo>Distance: {this.props.resultsinfo.distance}km <br /> Orientation: {this.props.resultsinfo.orientation}</sInfo>
                         {tab.map(t => {
                                     return <span key={t}><TAG>{t}</TAG></span>
                                 })}
                     </Block>
+            </div>
         )
     }
 }
 
 function mapStateToProps(state){
-    console.log("image",state)
     return{
        results: state.results,
     }
 }
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         ...bindActionCreators({infoProfil}, dispatch)
     };

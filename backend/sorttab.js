@@ -1,6 +1,5 @@
 let itsort = (tab, index) => {
     for (let i = 0; i < tab.length; i++){
-        console.log("ooo")
         if (i < tab.length - 1 && tab[i].info[index] > tab[i].info[index])
         {
             return (0)
@@ -20,7 +19,6 @@ let sorttab = (tab, index) =>{
         }
     }
 }
-console.log(tab)
 }
 
 module.exports = sorttab

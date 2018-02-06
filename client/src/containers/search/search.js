@@ -9,6 +9,7 @@ import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import { infoProfil } from '../../actions/search'
 import {browserHistory} from 'react-router'
+import Tri from './tri'
 
 
 const Div = styled.div`
@@ -23,10 +24,11 @@ class Search extends Component {
         function Empty(obj) {
             for(var key in obj) {
                 if(obj.hasOwnProperty(key))
-                    return true;
+                    return false;
             }
-            return false;
+            return true;
         }
+        console.log("test", this.props.results)
         let tab = [];
         for(let key in this.props.results) {
             tab.push(key);
@@ -37,11 +39,11 @@ class Search extends Component {
                 <Menu />
                 <Logo />
                 <Selectsearch />
+                {!Empty(this.props.results) ? <Tri /> : Empty(this.props.results)}                
                 <Divresult>
-                {Empty(tab) ? tab.map(t => {
+                {!Empty(this.props.results) ? tab.map(t => {
                     return  <Result key={t} resultsinfo={this.props.results[t].info} resultstag={this.props.results[t].tag}/>
-                    // <span key={t}><TAG>{t}</TAG></span>
-                }) : Empty(tab)}
+                }) : Empty(this.props.results)}
                 </Divresult>
             </Div>
         )
@@ -52,7 +54,7 @@ class Search extends Component {
 }
 }
 function mapStateToProps(state){
-    console.log("image",state.profil)
+    console.log("image",state.results)
     return{
        results: state.results,
     }

@@ -94,7 +94,7 @@ class Selectsearch extends Component {
     }
 }
 function mapStateToProps(state){
-    console.log("u",state.search)
+    console.log("u",state.results)
     return{
        search: state.search,
     }

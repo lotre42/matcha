@@ -11,7 +11,7 @@ let con = mysql.createConnection({
 con.connect()
 con.query('CREATE DATABASE IF NOT EXISTS matchafake')
 con.query('USE matchafake')
-var user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, username VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, bio VARCHAR(255), sexe VARCHAR(10), orientation VARCHAR(20), age INT, validation tinyint (1), ville VARCHAR(255), lat FLOAT, lon FLOAT)"
+var user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, username VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, bio VARCHAR(255), sexe VARCHAR(10), orientation VARCHAR(20), age INT, validation tinyint (1), ville VARCHAR(255), lat FLOAT, lon FLOAT, vue INT, lik INT, pop INT)"
 con.query(user, function (err, result) {
   if (err) throw err;
   console.log("Table created");

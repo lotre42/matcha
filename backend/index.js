@@ -16,8 +16,8 @@ const jsontransform = require('./jsontransform');
 const  mysql = require('mysql2/promise');
 const requete = require('./requete')
 const sorttab = require('./sorttab')
-
 // let test = require("./test")
+
 const secret = "7nTx713Jo25A4hrlWQ3hsQPPIAd0yT";
 const upload = multer({
     dest: 'uploads/'
@@ -58,9 +58,9 @@ app.use(express.json());
 //     })
 // });
 
-// app.get('/id', function(req, res) {
-
-// })
+app.get('/profil', function(req, res) {
+console.log("coucou")
+})
 
 app.post('/login', function(req, res){
 	con.query('SELECT * FROM users WHERE username = ?', [req.query.username], (err, user, result) => {
@@ -102,43 +102,42 @@ app.get('/search', function(req, res){
             const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake'});
             const [tab, fields] = await connection.execute(test, data);
             for (let i = 0; i < tab.length; i++){
-            const [img, fi] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id])
-                tab[i].image = img[0].profile_picture;
-                let res = jsontransform(tab[i]);
-                ret.push(res)
+            const [img, field] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id])
+            tab[i].image = img[0].profile_picture;            
+            let res = jsontransform(tab[i]);
+            ret.push(res)
             }
+            let d;
+            let final = []
             for (let i = 0; i < ret.length; i++){
-                if ((geolib.isPointInCircle(
+                d = geolib.getDistance(
                     {latitude: ret[i].info.lat, longitude: ret[i].info.lon},
-                    {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon},
-                    info.distance * 1000
-                )) == false){
-                    ret.shift(i);
+                    {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon})
+                    ret[i].info.distance = Math.round(d / 1000);
+                    if ((d / 1000) <= info.distance)
+                        final.push(ret[i])                    
                 }
-            }
-            console.log("coucou")
-            sorttab(ret, "age");
-            res.send(ret)
+            res.send(final)
         }
         requete();
     }
 });
-// app.put('/info', function(req, res){
-//     if (jwt.verify(req.headers.authorization, secret)){
-//         let info = JSON.parse(req.query.info);
-//         let tag = JSON.parse(req.query.tag);
-//         let image = JSON.parse(req.query.image);
-//         let user = {info, tag, image};
-//         let users = 'UPDATE users SET username=?, nom=?, prenom=?, bio=?, sexe=?, age=?, orientation=? WHERE id=?';
-//         let tags = 'UPDATE tag SET Sport=?, Music=?, Geek=?, Tatouage=?, Bouffe=?, Etudiant=?, Cinema=?, Voyage=?, Feignant=?, Litterature=?, Shopping=? WHERE id=?';    
-//         con.query(tags,[tag.Sport, tag.Music, tag.Geek, tag.Tatouage, tag.Bouffe, tag.Etudiant, tag.Cinema, tag.Voyage, tag.Feignant, tag.Litterature, tag.Shopping, tag.id])
-//         con.query(users,[info.username,info.nom,info.prenom,info.bio,info.sexe,info.age,info.orientation,info.id], (err) => {
-//             if (err) throw (err);
-//         })
-//         const token = jwt.sign({user: user}, secret);
-//         res.json(token);
-//     }
-// })
+app.put('/info', function(req, res){
+    if (jwt.verify(req.headers.authorization, secret)){
+        let info = JSON.parse(req.query.info);
+        let tag = JSON.parse(req.query.tag);
+        let image = JSON.parse(req.query.image);
+        let user = {info, tag, image};
+        let users = 'UPDATE users SET username=?, nom=?, prenom=?, bio=?, sexe=?, age=?, orientation=? WHERE id=?';
+        let tags = 'UPDATE tag SET Sport=?, Music=?, Geek=?, Tatouage=?, Bouffe=?, Etudiant=?, Cinema=?, Voyage=?, Feignant=?, Litterature=?, Shopping=? WHERE id=?';    
+        con.query(tags,[tag.Sport, tag.Music, tag.Geek, tag.Tatouage, tag.Bouffe, tag.Etudiant, tag.Cinema, tag.Voyage, tag.Feignant, tag.Litterature, tag.Shopping, tag.id])
+        con.query(users,[info.username,info.nom,info.prenom,info.bio,info.sexe,info.age,info.orientation,info.id], (err) => {
+            if (err) throw (err);
+        })
+        const token = jwt.sign({user: user}, secret);
+        res.json(token);
+    }
+})
 
 // app.get('/verifemail', (req, res) => {
 //     if (jwt.verify(req.headers.authorization, secret)){
