@@ -23,7 +23,7 @@ const upload = multer({
     dest: 'uploads/'
 });
 const app = express();
-// let fake = require("./config/fill_fake")
+let fake = require("./config/fill_fake")
 // app.use(expressJwt({secret: secret}).unless({ path: ['/users','/login']}))
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
@@ -59,15 +59,18 @@ app.use(express.json());
 // });
 
 app.get('/profil', function(req, res) {
+    jwt.verify(req.headers.authorization, secret)    
     let requete = async () => {
         let ret = {"info": {},
                     "tag": {},
                     "image":{"display": "", "profile_picture": "../../avatar.png", "picture_1": "../../bogoss.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
         }
-        test = "Select * FROM users WHERE id = ?"
-        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake'});
+        let test = "Select * FROM users WHERE id = ?"
+        let update = "UPDATE users SET vue = vue + 1 WHERE id=?"
+        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
         const [info, fields] = await connection.execute(test, [req.query[0]]);
-        const [tag, field] = await connection.execute(test, [req.query[0]]);        
+        const [tag, field] = await connection.execute(test, [req.query[0]]);
+        await connection.execute(update, [req.query[0]]);              
         ret.info = info[0];
         ret.tag = tag[0];
         res.json(ret)
@@ -112,7 +115,7 @@ app.get('/search', function(req, res){
         const data = [info.age.split('-')[0], info.age.split('-')[1], info.orientation, info.sexe];
         let requete = async () => {
             let ret = []
-            const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake'});
+            const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
             const [tab, fields] = await connection.execute(test, data);
             for (let i = 0; i < tab.length; i++){
             const [img, field] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id])
@@ -135,22 +138,22 @@ app.get('/search', function(req, res){
         requete();
     }
 });
-app.put('/info', function(req, res){
-    if (jwt.verify(req.headers.authorization, secret)){
-        let info = JSON.parse(req.query.info);
-        let tag = JSON.parse(req.query.tag);
-        let image = JSON.parse(req.query.image);
-        let user = {info, tag, image};
-        let users = 'UPDATE users SET username=?, nom=?, prenom=?, bio=?, sexe=?, age=?, orientation=? WHERE id=?';
-        let tags = 'UPDATE tag SET Sport=?, Music=?, Geek=?, Tatouage=?, Bouffe=?, Etudiant=?, Cinema=?, Voyage=?, Feignant=?, Litterature=?, Shopping=? WHERE id=?';    
-        con.query(tags,[tag.Sport, tag.Music, tag.Geek, tag.Tatouage, tag.Bouffe, tag.Etudiant, tag.Cinema, tag.Voyage, tag.Feignant, tag.Litterature, tag.Shopping, tag.id])
-        con.query(users,[info.username,info.nom,info.prenom,info.bio,info.sexe,info.age,info.orientation,info.id], (err) => {
-            if (err) throw (err);
-        })
-        const token = jwt.sign({user: user}, secret);
-        res.json(token);
-    }
-})
+// app.put('/info', function(req, res){
+//     if (jwt.verify(req.headers.authorization, secret)){
+//         let info = JSON.parse(req.query.info);
+//         let tag = JSON.parse(req.query.tag);
+//         let image = JSON.parse(req.query.image);
+//         let user = {info, tag, image};
+//         let users = 'UPDATE users SET username=?, nom=?, prenom=?, bio=?, sexe=?, age=?, orientation=? WHERE id=?';
+//         let tags = 'UPDATE tag SET Sport=?, Music=?, Geek=?, Tatouage=?, Bouffe=?, Etudiant=?, Cinema=?, Voyage=?, Feignant=?, Litterature=?, Shopping=? WHERE id=?';    
+//         con.query(tags,[tag.Sport, tag.Music, tag.Geek, tag.Tatouage, tag.Bouffe, tag.Etudiant, tag.Cinema, tag.Voyage, tag.Feignant, tag.Litterature, tag.Shopping, tag.id])
+//         con.query(users,[info.username,info.nom,info.prenom,info.bio,info.sexe,info.age,info.orientation,info.id], (err) => {
+//             if (err) throw (err);
+//         })
+//         const token = jwt.sign({user: user}, secret);
+//         res.json(token);
+//     }
+// })
 
 // app.get('/verifemail', (req, res) => {
 //     if (jwt.verify(req.headers.authorization, secret)){

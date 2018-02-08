@@ -13,38 +13,20 @@ export function changeImg(state, value){
 }
 
 export function infoProfil(id){
-    // let user = {
-    //     "info":{        "username": "Lotre",
-    //                     "nom": "Ahantar",
-    //                     "prenom": "karim",
-    //                     "bio": "coucou sava",
-    //                     "sexe": "Masculin",
-    //                     "orientation": "Heterosexuel",
-    //                     "age": "22",
-    //             },
-    //     "tag":{"Sport": true,
-    //     "Music": false,
-    //      "Geek":false,
-    //       "Tatouage":true,
-    //        "Bouffe":false,
-    //         "Etudiant":false,
-    //          "Cinema":false,
-    //           "Voyage":false,
-    //            "Feigant":true,
-    //             "Litterature":false,
-    //              "Shopping":false},
-    //     "image":{"display": "", "profile_picture": "../../avatar.png", "picture_1": "../../bogoss.png", "picture_2": "../../avatar.png", "picture_3": "../../avatar.png", "picture_4": "../../avatar.png"}
-    //         }
-    //     user.image.display = user.image.picture_1
-    // browserHistory.push('/profil')            
      return function (dispatch){
         let token = localStorage.getItem('token');         
-         console.log("coucou")
         axios({ method: 'get',
         url: `${END_POINT}/profil`,
+        params: id,
         headers: { 'Authorization': token }
     }).then((response) =>{
-             dispatch({type: AT_PROFIL.INFO, payload: user})
+        if (localStorage.getItem('profil'))
+            localStorage.removeItem('profil')
+        localStorage.setItem('profil', id);             
+        let ret = response.data;
+        ret.image.display = ret.image.picture_1;
+        dispatch({type: AT_PROFIL.INFO, payload: response.data})
+        browserHistory.push('/profil')     
          })
     }
 }
@@ -215,7 +197,6 @@ export function  updateSearch(props, event){
         params: props,
         headers: { 'Authorization': token }
     }).then((response) =>{
-        console.log("retour", response.data)
             dispatch({type: AT_SEARCH.UPDATE , payload: response.data})
         })
     }

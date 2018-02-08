@@ -92,19 +92,20 @@ border-radius: 4px;
 `;
 class ImgProfil extends Component {
     render () {
-        // function isEmpty(obj) {
-        //     for(var key in obj) {
-        //         if(obj.hasOwnProperty(key))
-        //             return false;
-        //     }
-        //     return true;
-        // }
-        // if (isEmpty(this.props.profil))
-        // {
-        //     this.props.infoProfil()
-        //     return (<div></div>)
-        // }
-        // else{
+        function isEmpty(obj) {
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
+        if (isEmpty(this.props.profil))
+        {
+            let id = localStorage.getItem('profil')
+            this.props.infoProfil(id)
+            return (<div></div>)
+        }
+        else{
             return (
                 <Div>
                     {/* <H2>Profil de {this.props.profil.info.nom} {this.props.profil.info.prenom}</H2> */}
@@ -152,7 +153,7 @@ class ImgProfil extends Component {
              </Div>
         )}
     }
-// }
+}
 
 function mapStateToProps(state){
     console.log("state.users", state)
@@ -163,7 +164,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        ...bindActionCreators({changeImg}, dispatch)
+        ...bindActionCreators({infoProfil,changeImg}, dispatch)
     };
 };
 

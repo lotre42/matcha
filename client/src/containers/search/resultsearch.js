@@ -48,7 +48,7 @@ class Result extends Component {
         return (
             <div>
                     <Block>
-                        <button onClick={e => infoProfil(this.props.resultsinfo.id)}>Acceder à son profil</button>
+                        <button onClick={e => this.props.infoProfil(this.props.resultsinfo.id)}>Acceder à son profil</button>
                         <Img src={this.props.resultsinfo.image} width="200" height="200"/>
                         <Info name>{this.props.resultsinfo.nom} {this.props.resultsinfo.prenom}</Info>
                         <sInfo>Popularite: {this.props.resultsinfo.pop}</sInfo><br />

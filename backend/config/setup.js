@@ -3,7 +3,8 @@ let con = mysql.createConnection({
   host: "localhost",
   port     : 3306,
   user: "root",
-  password: "27092709"
+  password: "27092709",
+  socketPath: '/var/mysql/mysql.sock'
 });
 
 
@@ -23,6 +24,11 @@ con.query(img, function (err, result) {
 });
 var tag = "CREATE TABLE IF NOT EXISTS tag (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, Sport tinyint (1), Music tinyint (1), Geek tinyint (1), Tatouage tinyint (1), Bouffe tinyint (1), Etudiant tinyint (1), Cinema tinyint (1), Voyage tinyint (1), Feignant tinyint (1), Litterature tinyint (1), Shopping tinyint (1))"
 con.query(tag, function (err, result) {
+  if (err) throw err;
+  console.log("Table created");
+});
+var vue = "CREATE TABLE IF NOT EXISTS vue (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_visiteur INT, date DATE)"
+con.query(vue, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });

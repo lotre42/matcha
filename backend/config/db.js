@@ -6,6 +6,7 @@ let con = mysql.createConnection({
   user     : 'root',
   password : '27092709',
   database : 'matchafake',
+  socketPath: '/var/mysql/mysql.sock'  
 })
 
 con.connect((err) => {
