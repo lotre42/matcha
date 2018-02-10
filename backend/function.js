@@ -17,4 +17,13 @@ let jsontransform = (user) =>{
     return ret    
 }
 
-module.exports = jsontransform
+
+let parseTag = (tag) => {
+    let ret = {};
+    for (let prop in tag) {
+        if (tag[prop] == 1)
+            ret[prop] = `${tag[prop]}`;
+    }
+    return (ret)
+}
+module.exports = {jsontransform, parseTag}

@@ -27,8 +27,13 @@ con.query(tag, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });
-var vue = "CREATE TABLE IF NOT EXISTS vue (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_visiteur INT, date DATE)"
+var vue = "CREATE TABLE IF NOT EXISTS vue (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_visiteur INT, id_profil INT, date DATETIME)"
 con.query(vue, function (err, result) {
+  if (err) throw err;
+  console.log("Table created");
+});
+var like = "CREATE TABLE IF NOT EXISTS lik (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_likeur INT, id_profil INT, date DATETIME)"
+con.query(like, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });
