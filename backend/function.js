@@ -1,3 +1,4 @@
+const  mysql = require('mysql2/promise');
 
 let jsontransform = (user) =>{
     let ret = {
@@ -26,4 +27,21 @@ let parseTag = (tag) => {
     }
     return (ret)
 }
-module.exports = {jsontransform, parseTag}
+let popularity = (id) =>{
+    const lik = "SELECT * from lik WHERE id_profil = ?";
+    const view = "SELECT vue from users WHERE id = ?";  
+    const changelike = "Update users SET lik = ? WHERE id = ?"
+    const maxlike = "SELECT MAX(lik) AS maxlike FROM users"
+    const maxvue = "SELECT MAX(vue) AS maxvue FROM users"                        
+  let requete = async() =>{
+    const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+    const [like, fields] = await connection.execute(lik, [id]);
+    const [vue, field] = await connection.execute(view, [id]);
+    await connection.execute(changelike, [like.length, id]);
+    const [maxl, fiel] = await connection.execute(maxlike);
+    const [maxv, fie] = await connection.execute(maxvue);    
+    console.log(maxv[0].maxvue)       
+  }
+    requete();   
+}
+module.exports = {jsontransform, parseTag, popularity}

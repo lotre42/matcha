@@ -12,8 +12,12 @@ export const AT_SEARCH={
     INFO: "INFO_SEARCH",
 }
 
-export const AT_LIKE={
+export const AT_WHOLIKE={
     WHO: "WHO_LIKE",
+    // INFO: "INFO_SEARCH",
+}
+export const AT_INFOLIKE={
+    INFO: "INFO_LIKE",
     // INFO: "INFO_SEARCH",
 }
 export const AT_PROFIL={

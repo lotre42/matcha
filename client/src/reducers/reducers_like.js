@@ -1,8 +1,16 @@
-import {AT_SEARCH, AT_LIKE} from '../actions/actions-types'
+import {AT_INFOLIKE, AT_WHOLIKE} from '../actions/actions-types'
 
-export default function ReducerLike (state=[], action){
+export function ReducerLike (state=[], action){
     switch(action.type){
-        case AT_LIKE.WHO:
+        case AT_WHOLIKE.WHO:
+            return action.payload; // immutable
+    }
+    return state
+}
+
+export function ReducerinfoLike (state=[], action){
+    switch(action.type){
+        case AT_INFOLIKE.INFO:
             return action.payload; // immutable
     }
     return state

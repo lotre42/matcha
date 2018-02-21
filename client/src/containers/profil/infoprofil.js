@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components"
 import { infoProfil, changeImg } from '../../actions/search'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
+import Like from './like'
 
 
 const Img = styled.img`
@@ -116,7 +117,7 @@ class ImgProfil extends Component {
                         <P>{this.props.profil.info.sexe}</P>
                         <P>{this.props.profil.info.orientation}</P>
                         <P>{this.props.profil.info.age}ans</P>
-                        <p><Button rose>LIKER</Button></p>
+                        <Like />
                     </CARD> 
                   <IMG>
                     {/* <BIOGEO>
@@ -156,7 +157,6 @@ class ImgProfil extends Component {
 }
 
 function mapStateToProps(state){
-    console.log("state.users", state)
     return{
       profil: state.profil
     }

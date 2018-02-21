@@ -58,12 +58,12 @@ class Mypopularity extends Component {
             <Div>
                 <H3>Salut {this.props.users.info.prenom}</H3>
                 <p>Ils vous correspondent:</p>
-                <Divresult>
+                {/* <Divresult>
                     {tab3.map(t => {
                         return  <Result key={t} resultsinfo={this.props.match[t].info} resultstag={this.props.match[t].tag}/>
                         // <span key={t}><TAG>{t}</TAG></span>
                     })}
-                </Divresult> 
+                </Divresult>  */}
                 <p>Ils ont consultés votre profil:</p>
                 <Divresult>
                     {tab2.map(t => {

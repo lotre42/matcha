@@ -12,10 +12,10 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const mailer = require('./mailer');
 const geolib = require('geolib');
-const {jsontransform, parseTag} = require('./function');
+const {jsontransform, parseTag, popularity} = require('./function');
 const  mysql = require('mysql2/promise');
 const requete = require('./requete')
-const sorttab = require('./sorttab')
+const sorttab = require('./sorttab');
 // let test = require("./test")
 
 const secret = "7nTx713Jo25A4hrlWQ3hsQPPIAd0yT";
@@ -167,26 +167,26 @@ app.get('/like', (req, res) => {
     jwt.verify(req.headers.authorization, secret)
     let token = req.headers.authorization;
     let payloadtoken = jwt.decode(token);
-    let requete = async () => {
-        let ret = []
-        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+     let requete = async () => {
+         let ret = []
+         const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
         const [tab, fields] = await connection.execute("Select id_likeur FROM lik WHERE id_profil = ?", [payloadtoken.user.info.id]);
-        // if (tab.length > 0){
+         if (tab.length > 0){
             for (let i = 0; i < tab.length; i++){
-                const [user, u] = await connection.execute("Select * FROM users WHERE id = ?", [tab[i].id_visiteur]);
-                const [tag, t] = await connection.execute("Select * FROM tag WHERE id = ?", [tab[i].id_visiteur]);
-                const [img, im] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id_visiteur]);                                              
+                const [user, u] = await connection.execute("Select * FROM users WHERE id = ?", [tab[i].id_likeur]);
+                const [tag, t] = await connection.execute("Select * FROM tag WHERE id = ?", [tab[i].id_likeur]);
+                const [img, im] = await connection.execute("Select profile_picture FROM img WHERE id = ?", [tab[i].id_likeur]);                                              
                 ret.push({"info": user[0], "tag": parseTag(tag[0])})
                 ret[i].info.distance = Math.round(geolib.getDistance(
                     {latitude: ret[i].info.lat, longitude: ret[i].info.lon},
                     {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon}) / 1000)
                 ret[i].info.image = img[0].profile_picture;
-                }
-                res.send(ret)
-        // }
-        // else
-        //     res.send("NUL")
-    }
+           }
+                 res.send(ret)
+          }
+         else
+             res.send("NULL")
+     }
     requete(); 
 });
 app.get('/likeuser', (req, res) => {
@@ -194,7 +194,6 @@ app.get('/likeuser', (req, res) => {
     let token = req.headers.authorization;
     let payloadtoken = jwt.decode(token);
    let info = req.query;
-   console.log(info)
    if (!info.like || info.like == "LIKE"){
     con.query("INSERT INTO lik SET id_likeur = ?, id_profil = ?, date = NOW()", [payloadtoken.user.info.id, info.id])
     res.json({like: "DISLIKE"})
@@ -203,6 +202,7 @@ app.get('/likeuser', (req, res) => {
     con.query("DELETE FROM lik WHERE id_likeur = ? AND id_profil = ?", [payloadtoken.user.info.id, info.id])
     res.json({like: "LIKE"})
    }
+   popularity(info.id);
 });
 app.get('/checklike', (req, res) => {
     jwt.verify(req.headers.authorization, secret)

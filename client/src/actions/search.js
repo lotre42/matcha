@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {AT_USERS, AT_TAG, AT_IMG, AT_SEARCH, AT_LIKE, AT_VIEW, AT_MATCH, AT_PROFIL} from './actions-types'
+import {AT_USERS, AT_TAG, AT_IMG, AT_SEARCH, AT_WHOLIKE, AT_INFOLIKE, AT_VIEW, AT_MATCH, AT_PROFIL} from './actions-types'
 import {browserHistory} from 'react-router'
 import {itsort, itsort2} from '../function/function'
 const END_POINT = "http://localhost:3000"
@@ -52,37 +52,25 @@ export function createSearch(){
     }
 }
 export function  searchView(){
-    // let user = props.users;
-    // let tag = props.tags;
     return function (dispatch){
-    //     axios({ method: 'get',
-    //     url: `${END_POINT}/search`,
-    //     params: props
-    // }).then((response) =>{
-        let ret = {"1":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                    "2":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                        "5":{
-                            "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                            "tag": {"Sport": "checked", "Music": "checked"}
-                            },
-                            "3":{
-                                "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                "tag": {"Sport": "checked", "Music": "checked"}
-                                },
-                                "4":{
-                                    "info": {"nom": "luc", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                    "tag": {"Sport": "checked", "Music": "checked"}
-                                    },
-                  }
-        // console.log("retour", response.data)
-            dispatch({type: AT_VIEW.WHO , payload: ret})
-        // })
+        let token = localStorage.getItem('token'); 
+        axios({ method: 'get',
+        url: `${END_POINT}/vue`,
+        headers: { 'Authorization': token }
+    }).then((response) =>{
+            dispatch({type: AT_VIEW.WHO , payload: response.data})
+        })
+    }
+}
+export function  searchLike(){
+    return function (dispatch){
+        let token = localStorage.getItem('token'); 
+        axios({ method: 'get',
+        url: `${END_POINT}/like`,
+        headers: { 'Authorization': token }
+    }).then((response) =>{
+            dispatch({type: AT_WHOLIKE.WHO , payload: response.data})
+        })
     }
 }
 export function  searchMatch(){
@@ -119,40 +107,40 @@ export function  searchMatch(){
         // })
     }
 }
-export function  searchLike(){
-    // let user = props.users;
-    // let tag = props.tags;
-    return function (dispatch){
-    //     axios({ method: 'get',
-    //     url: `${END_POINT}/search`,
-    //     params: props
-    // }).then((response) =>{
-        let ret = {"1":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                    "2":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                        "5":{
-                            "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                            "tag": {"Sport": "checked", "Music": "checked"}
-                            },
-                            "3":{
-                                "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                "tag": {"Sport": "checked", "Music": "checked"}
-                                },
-                                "4":{
-                                    "info": {"nom": "luc", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                    "tag": {"Sport": "checked", "Music": "checked"}
-                                    },
-                  }
-        // console.log("retour", response.data)
-            dispatch({type: AT_LIKE.WHO , payload: ret})
-        // })
-    }
-}
+// export function  searchLike(){
+//     // let user = props.users;
+//     // let tag = props.tags;
+//     return function (dispatch){
+//     //     axios({ method: 'get',
+//     //     url: `${END_POINT}/search`,
+//     //     params: props
+//     // }).then((response) =>{
+//         let ret = {"1":{
+//                         "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+//                         "tag": {"Sport": "checked", "Music": "checked"}
+//                         },
+//                     "2":{
+//                         "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+//                         "tag": {"Sport": "checked", "Music": "checked"}
+//                         },
+//                         "5":{
+//                             "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+//                             "tag": {"Sport": "checked", "Music": "checked"}
+//                             },
+//                             "3":{
+//                                 "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+//                                 "tag": {"Sport": "checked", "Music": "checked"}
+//                                 },
+//                                 "4":{
+//                                     "info": {"nom": "luc", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
+//                                     "tag": {"Sport": "checked", "Music": "checked"}
+//                                     },
+//                   }
+//         // console.log("retour", response.data)
+//             dispatch({type: AT_WHOLIKE.WHO , payload: ret})
+//         // })
+//     }
+// }
 
 
 export function  sorttab(tab, index){
@@ -198,6 +186,36 @@ export function  updateSearch(props, event){
         headers: { 'Authorization': token }
     }).then((response) =>{
             dispatch({type: AT_SEARCH.UPDATE , payload: response.data})
+        })
+    }
+}
+
+export function  likeUser(id, like){
+    event.preventDefault()
+    let ret = {...like};
+    console.log("ret", ret)
+    let token = localStorage.getItem('token');
+    return function (dispatch){
+        axios({ method: 'get',
+        url: `${END_POINT}/likeuser`,
+        params: {id, ...ret},
+        headers: { 'Authorization': token }
+    }).then((response) =>{
+            dispatch({type: AT_INFOLIKE.INFO , payload: response.data})
+        })
+    }
+}
+
+export function  checkLike(id){
+    event.preventDefault();
+    let token = localStorage.getItem('token');
+    return function (dispatch){
+        axios({ method: 'get',
+        url: `${END_POINT}/checklike`,
+        params: {id},
+        headers: { 'Authorization': token }
+    }).then((response) =>{
+            dispatch({type: AT_INFOLIKE.INFO , payload: response.data})
         })
     }
 }
