@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import React, { Component } from 'react'
+import { updateReceveur } from '../../actions/message'
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
 
 const Div = styled.div`
 width:  15%;
@@ -28,220 +31,26 @@ class Message extends Component {
     render () {
         return (
                 <Div>
-                    <Name>Ahantar Karim</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
-                    <Name>coucou</Name>
+                    {
+                        this.props.idmessage.map(t => {
+                            return (<Name onClick={e => this.props.updateReceveur(t)}>Ahantar Karim</Name>)
+                        })
+                    }
                 </Div>
         )
     }
 }
 
+function mapStateToProps(state){
+    return{
+       idmessage: state.idmessage,
+    }
+}
 
-export default Message
+const mapDispatchToProps = dispatch => {
+    return {
+        ...bindActionCreators({updateReceveur}, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Message)

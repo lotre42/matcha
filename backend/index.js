@@ -13,6 +13,7 @@ const expressJwt = require('express-jwt');
 const mailer = require('./mailer');
 const geolib = require('geolib');
 const {jsontransform, parseTag, popularity} = require('./function');
+const { matchbyinfo, matchbylike } = require('./match');
 const  mysql = require('mysql2/promise');
 const requete = require('./requete')
 const sorttab = require('./sorttab');
@@ -24,10 +25,26 @@ const upload = multer({
 });
 const app = express();
 // let fake = require("./config/fill_fake")
+const server = app.listen(3000);
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+const io = require('socket.io').listen(server)
+
+io.on('connection', socket => {
+    socket.on('message', (data) => {
+        jwt.verify(data.token, secret);
+        let payloadtoken = jwt.decode(data.token);
+        let db = async () => {
+            let insert = "INSERT INTO message SET id_envoyeur = ?, id_receveur = ?, message = ?, date = now()"
+            const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+            await connection.execute(insert, [payloadtoken.user.info.id, data.receveur, data.message]);
+        }
+        db();
+    })
+    io.sockets.emit('messages', "bang")
+  })
 // app.post('/users', function(req, res){
 //     // let fill = require("./config/fill_fake");
 //     con.query('SELECT * FROM users WHERE email = ? OR username = ?', [req.body.email, req.body.username], (err, rows, result) => {
@@ -56,7 +73,18 @@ app.use(express.json());
 //         }
 //     })
 // });
-
+app.get('/updatemessage', function(req, res) {
+    jwt.verify(req.headers.authorization, secret)
+    let token = req.headers.authorization;
+    let payloadtoken = jwt.decode(token)  
+    let requete = async () => {
+        const send = "SELECT message, id_envoyeur FROM message WHERE (id_envoyeur = ? AND id_receveur = ?) OR (id_receveur = ? AND id_envoyeur = ?)";
+        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+        const [envoi, fields] = await connection.execute(send, [payloadtoken.user.info.id, req.query[0],payloadtoken.user.info.id, req.query[0]]);
+        res.send(envoi);
+        }
+    requete();
+})
 app.get('/profil', function(req, res) {
     jwt.verify(req.headers.authorization, secret)
     let token = req.headers.authorization;
@@ -91,7 +119,16 @@ app.post('/login', function(req, res){
             con.query('SELECT * FROM img WHERE id = ?', [user[0].id], (err, imgs, result) => {
                 ret.image = {...imgs[0]}
                 const token = jwt.sign({user: ret}, secret)
-                res.json(token)
+                con.query('SELECT * FROM message WHERE id_receveur = ? OR id_envoyeur = ?', [user[0].id, user[0].id], (err, info, result) => {
+                    let id_message = [];
+                    for(let i = 0; i < info.length; i++){
+                        if (info[i].id_receveur == user[0].id)
+                            id_message.push(info[i].id_envoyeur)
+                        else if (info[i].id_envoyeur == user[0].id)
+                            id_message.push(info[i].id_receveur)                        
+                    }
+                    res.json({token, id_message})
+                })
             })
         }
         else{
@@ -159,9 +196,11 @@ app.get('/vue', (req, res) => {
                 {latitude: payloadtoken.user.info.lat, longitude: payloadtoken.user.info.lon}) / 1000)
             ret[i].info.image = img[0].profile_picture;
             }
-            res.send(ret)
-    }
-    requete(); 
+            return (ret)
+        }
+    requete().then((ret) => {
+        res.send(ret)
+    }); 
 });
 app.get('/like', (req, res) => {
     jwt.verify(req.headers.authorization, secret)
@@ -189,6 +228,31 @@ app.get('/like', (req, res) => {
      }
     requete(); 
 });
+
+app.get('/match', (req, res) => {
+    jwt.verify(req.headers.authorization, secret)
+    let token = req.headers.authorization;
+    let payloadtoken = jwt.decode(token);
+    let requete = async () => {
+        const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+        const [tab, fields] = await connection.execute("Select id_profil FROM lik WHERE id_likeur = ?", [payloadtoken.user.info.id]);
+        return (tab);
+    }
+
+    let resultat = async () => {
+        let tab = await requete();
+        let final;
+        if (tab.length > 0)
+            final = await matchbylike(tab, payloadtoken.user)
+        else
+            final = await matchbyinfo(payloadtoken.user)
+        return (final)
+    }
+    resultat().then((final) => {
+        res.json(final)
+    })
+});
+
 app.get('/likeuser', (req, res) => {
     jwt.verify(req.headers.authorization, secret)
     let token = req.headers.authorization;
@@ -266,4 +330,3 @@ app.get('/checklike', (req, res) => {
 //     res.json({ status: 'ok' });
 // });
 
-app.listen(3000);

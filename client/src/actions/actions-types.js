@@ -12,6 +12,13 @@ export const AT_SEARCH={
     INFO: "INFO_SEARCH",
 }
 
+export const AT_MESSAGE={
+    LOAD: "LOAD_MESSAGE",
+    ALL: "ALL_MESSAGE",
+    ID: "ID_MESSAGE",
+    WHO: "WHO_MESSAGE",
+}
+
 export const AT_WHOLIKE={
     WHO: "WHO_LIKE",
     // INFO: "INFO_SEARCH",

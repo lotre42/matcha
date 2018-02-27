@@ -10,7 +10,7 @@ import thunk from 'redux-thunk'
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 
-ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__())}>
+ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
 <Routes />
 </Provider>
 ,document.querySelector('.container'));

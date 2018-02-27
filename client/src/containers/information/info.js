@@ -160,7 +160,7 @@ class Info extends React.Component {
     }
 }
 function mapStateToProps(state){
-    console.log("uusss",state.users)
+    console.log("uusss",state)
     return{
        users: state.users,
     }

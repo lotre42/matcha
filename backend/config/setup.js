@@ -12,7 +12,7 @@ let con = mysql.createConnection({
 con.connect()
 con.query('CREATE DATABASE IF NOT EXISTS matchafake')
 con.query('USE matchafake')
-var user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, username VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, bio VARCHAR(255), sexe VARCHAR(10), orientation VARCHAR(20), age INT, validation tinyint (1), ville VARCHAR(255), lat FLOAT, lon FLOAT, vue INT, lik INT, pop INT)"
+var user = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, username VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, bio VARCHAR(255), sexe VARCHAR(10), orientation VARCHAR(20), age INT, validation tinyint (1), ville VARCHAR(255), lat FLOAT, lon FLOAT, vue INT, lik INT, pop FLOAT)"
 con.query(user, function (err, result) {
   if (err) throw err;
   console.log("Table created");
@@ -34,6 +34,11 @@ con.query(vue, function (err, result) {
 });
 var like = "CREATE TABLE IF NOT EXISTS lik (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_likeur INT, id_profil INT, date DATETIME)"
 con.query(like, function (err, result) {
+  if (err) throw err;
+  console.log("Table created");
+});
+var message = "CREATE TABLE IF NOT EXISTS message (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, id_envoyeur INT, id_receveur INT, date DATETIME, message VARCHAR(255))"
+con.query(message, function (err, result) {
   if (err) throw err;
   console.log("Table created");
 });

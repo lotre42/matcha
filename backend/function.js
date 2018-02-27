@@ -27,6 +27,7 @@ let parseTag = (tag) => {
     }
     return (ret)
 }
+
 let popularity = (id) =>{
     const lik = "SELECT * from lik WHERE id_profil = ?";
     const view = "SELECT vue from users WHERE id = ?";  
@@ -40,7 +41,9 @@ let popularity = (id) =>{
     await connection.execute(changelike, [like.length, id]);
     const [maxl, fiel] = await connection.execute(maxlike);
     const [maxv, fie] = await connection.execute(maxvue);    
-    console.log(maxv[0].maxvue)       
+    let pop = (like.length * 3) / maxl[0].maxlike + (vue[0].vue * 2) / maxv[0].maxvue;
+    pop = Math.round(pop*100)/100;
+    await connection.execute("Update users SET pop = ? WHERE id = ?", [pop, id]);
   }
     requete();   
 }

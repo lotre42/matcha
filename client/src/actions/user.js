@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {AT_USERS, AT_TAG, AT_IMG, AT_SEARCH} from './actions-types'
+import {AT_USERS, AT_TAG, AT_IMG, AT_SEARCH, AT_MESSAGE} from './actions-types'
 import {browserHistory} from 'react-router'
 const END_POINT = "http://localhost:3000"
 
@@ -13,9 +13,11 @@ export function  checkConnexion(user){
         // console.log("response", response.data)
         if(response.data)
         {
-            let token = response.data;
+            let token = response.data.token;
             localStorage.setItem('token', token);
-            let payloadtoken = JSON.parse(atob(token.split('.')[1]));   
+            localStorage.setItem('idmessage', response.data.id_message);
+            let payloadtoken = JSON.parse(atob(token.split('.')[1]));
+            dispatch({type: AT_MESSAGE.ID , payload: response.data.id_message})               
             dispatch({type: AT_USERS.CHECK , payload: payloadtoken.user})
             browserHistory.push('/info')
         }
@@ -109,7 +111,10 @@ export function imgInfo(e, props, image){
 export function readUser(id){
      return function (dispatch){
          let token = localStorage.getItem("token");
+         let id_message = localStorage.getItem("idmessage").split(',');
+         console.log("iiii", id_message)
          let ret = JSON.parse(atob(token.split('.')[1]));
-    dispatch({type: AT_USERS.READ, payload: ret.user})    
+         dispatch({type: AT_MESSAGE.ID , payload: id_message})                   
+        dispatch({type: AT_USERS.READ, payload: ret.user})    
     }
 }

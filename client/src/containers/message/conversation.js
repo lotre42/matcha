@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import {loadMessage, updateMessage} from '../../actions/message'
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
+import socketIOClient from 'socket.io-client'
+const END_POINT = "http://localhost:3000"
+
 
 const Div = styled.div`
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
@@ -41,29 +47,41 @@ border-radius: 4px;
 `;
 class Conversation extends Component {
     render () {
+        const socket = socketIOClient(END_POINT)        
+        socket.on('messages', (data) => {
+            console.log("data", data)   
+             })
         return (
             <Return>
-                <Div>
-                    <div>
-                    <Message disabled="disabled" >wech le bon vieu sava ou quoi</Message>
-                    </div>
-                    <div>
-                    <Message disabled="disabled" >wech le bon vieu sava ou quoi</Message>
-                    </div>
-                    <div>                    
-                    <Message disabled="disabled" >wech le bon vieu sava ou quoi >wech le bon vieu sava ou quoi>wech le bon vieu sava ou quoi>wech le bon vieu sava ou quoi</Message>
-                    </div>
-                    <div>                    
-                    <Message right disabled="disabled" >wech le bon vieu sava ou quoi >wech le bon vieu sava ou quoi>wech le bon vieu sava ou quoi>wech le bon vieu sava ou quoi</Message>
-                    </div>
-                </Div>
-                <Send>
-                    <Text placeholder="Ecrivez votre message"></Text>
-                    <Validate>Envoyer</Validate>
-                </Send>
+                <form onSubmit={e => this.props.updateMessage(this.props.message, e, this.props.whomessage)}>                    
+                    <Div>
+                        {
+                            this.props.allmessage.map(t => {
+                                return(<Message disabled="disabled" >{t.message}</Message>)
+                            })
+                        }
+                    </Div>
+                    <Send>
+                        <Text placeholder="Ecrivez votre message" onChange={e => this.props.loadMessage(e.target.value)}></Text>
+                        <Validate>Envoyer</Validate>
+                    </Send>
+                </form>
         </Return>
         )
     }
 }
+function mapStateToProps(state){
+    console.log("message", state.allmessage)
+    return{
+       message: state.loadmessage,
+       allmessage: state.allmessage
+    }
+}
 
-export default Conversation
+const mapDispatchToProps = dispatch => {
+    return {
+        ...bindActionCreators({loadMessage, updateMessage}, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conversation)

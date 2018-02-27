@@ -69,42 +69,20 @@ export function  searchLike(){
         url: `${END_POINT}/like`,
         headers: { 'Authorization': token }
     }).then((response) =>{
+        console.log("liiike",response.data)
             dispatch({type: AT_WHOLIKE.WHO , payload: response.data})
         })
     }
 }
 export function  searchMatch(){
-    // let user = props.users;
-    // let tag = props.tags;
     return function (dispatch){
-    //     axios({ method: 'get',
-    //     url: `${END_POINT}/search`,
-    //     params: props
-    // }).then((response) =>{
-        let ret = {"1":{
-                        "info": {"nom": "HABASS", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                    "2":{
-                        "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                        "tag": {"Sport": "checked", "Music": "checked"}
-                        },
-                        "5":{
-                            "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                            "tag": {"Sport": "checked", "Music": "checked"}
-                            },
-                            "3":{
-                                "info": {"nom": "John", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                "tag": {"Sport": "checked", "Music": "checked"}
-                                },
-                                "4":{
-                                    "info": {"nom": "luc", "prenom": "Cafe", "age": "55", "distance": "3,5", "sexe": "Masculin", "image": "../../avatar.png", "orientation": "Heterosexuel"},
-                                    "tag": {"Sport": "checked", "Music": "checked"}
-                                    },
-                  }
-        // console.log("retour", response.data)
-            dispatch({type: AT_MATCH.WHO , payload: ret})
-        // })
+        let token = localStorage.getItem('token'); 
+        axios({ method: 'get',
+        url: `${END_POINT}/match`,
+        headers: { 'Authorization': token }
+    }).then((response) =>{
+            dispatch({type: AT_MATCH.WHO , payload: response.data})
+        })
     }
 }
 // export function  searchLike(){
