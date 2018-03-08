@@ -7,7 +7,7 @@ import ReducerMatch from './reducers_match'
 import { ReducerLike, ReducerinfoLike } from './reducers_like'
 import ReducerProfil from './reducers_profil'
 import {reducer as ReducerForm} from 'redux-form'
-import { ReducerAllMessage, ReducerLoadMessage, ReducerWhoMessage, ReducerIdMessage } from './reducers_message';
+import { ReducerAllMessage, ReducerLoadMessage, ReducerWhoMessage, ReducerIdMessage, ReducerViaMessage } from './reducers_message';
 
 const rootReducer = combineReducers({
     users: ReducerUsers,
@@ -22,7 +22,8 @@ const rootReducer = combineReducers({
     loadmessage: ReducerLoadMessage,
     allmessage: ReducerAllMessage,
     whomessage: ReducerWhoMessage,
-    idmessage: ReducerIdMessage
+    idmessage: ReducerIdMessage,
+    viamessage: ReducerViaMessage
 })
 
 export default rootReducer 

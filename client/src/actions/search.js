@@ -22,7 +22,8 @@ export function infoProfil(id){
     }).then((response) =>{
         if (localStorage.getItem('profil'))
             localStorage.removeItem('profil')
-        localStorage.setItem('profil', id);             
+        localStorage.setItem('profil', id);      
+        console.log("responsecc", response.data)       
         let ret = response.data;
         ret.image.display = ret.image.picture_1;
         dispatch({type: AT_PROFIL.INFO, payload: response.data})
@@ -33,7 +34,7 @@ export function infoProfil(id){
 
 export function createSearch(){
     let search = {"info":
-                    {"age": "18-25", "orientation": "homosexuel", "sexe": "Femme", "distance": "20"},
+                    {"age": "18-25", "orientation": "homosexuel", "sexe": "Femme", "distance": "20", "pop": "0-5"},
                     "tag": []
 }
      return function (dispatch){
@@ -169,7 +170,6 @@ export function  updateSearch(props, event){
 }
 
 export function  likeUser(id, like){
-    event.preventDefault()
     let ret = {...like};
     console.log("ret", ret)
     let token = localStorage.getItem('token');
@@ -185,7 +185,7 @@ export function  likeUser(id, like){
 }
 
 export function  checkLike(id){
-    event.preventDefault();
+    // event.preventDefault();
     let token = localStorage.getItem('token');
     return function (dispatch){
         axios({ method: 'get',

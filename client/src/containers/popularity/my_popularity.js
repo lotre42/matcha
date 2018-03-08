@@ -32,7 +32,7 @@ class Mypopularity extends Component {
         if (i == 0){
                 // this.props.searchView()
                 // this.props.searchLike()
-                // this.props.searchMatch()
+                this.props.searchMatch()
                 i = 1;
 
         }

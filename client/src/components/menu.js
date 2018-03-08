@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import React, { Component } from 'react'
 import {browserHistory} from 'react-router'
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
+import { resetUser } from '../actions/user'
+import { viaMenu } from '../actions/message'
 
 
 const UL = styled.ul`
@@ -48,12 +52,25 @@ class Menu extends Component {
       <LI><A onClick={e => browserHistory.push('/popularity')}>Popularité</A></LI>
       <LI><A onClick={e => browserHistory.push('/search')}>Match</A></LI>
       <LI><A onClick={e => browserHistory.push('/info')}>Mes Informations</A></LI>
-      <LI><A onClick={e => browserHistory.push('/messages')}>Messages</A></LI>      
-      <LI><A onClick={this.handleClick}>Deconnexion</A></LI>
+      <LI><A onClick={e => this.props.viaMenu()}>Messages</A></LI>      
+      <LI><A onClick={e => this.props.resetUser(this.props.users.info.id)}>Deconnexion</A></LI>
     </UL>
 </nav>
         )
     }
 }
 
-export default Menu
+ const mapStateToProps = (state) => {
+     console.log("reset", state)
+    return {
+        users: state.users
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        ...bindActionCreators({resetUser, viaMenu}, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)

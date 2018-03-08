@@ -5,6 +5,7 @@ export const AT_USERS={
     INFO_USER: "INFO_USER",
     UPDATE: "UPDATE_USER",
     INFO_TAG: "UPDATE_USER",
+    RESET: "RESET_USER",
 }
 
 export const AT_SEARCH={
@@ -17,6 +18,7 @@ export const AT_MESSAGE={
     ALL: "ALL_MESSAGE",
     ID: "ID_MESSAGE",
     WHO: "WHO_MESSAGE",
+    VIA: "VIA_MESSAGE"
 }
 
 export const AT_WHOLIKE={

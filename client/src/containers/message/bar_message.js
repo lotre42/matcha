@@ -33,7 +33,7 @@ class Message extends Component {
                 <Div>
                     {
                         this.props.idmessage.map(t => {
-                            return (<Name onClick={e => this.props.updateReceveur(t)}>Ahantar Karim</Name>)
+                            return (<Name onClick={e => this.props.updateReceveur(t)}>{t}</Name>)
                         })
                     }
                 </Div>

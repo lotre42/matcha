@@ -31,3 +31,11 @@ export function ReducerIdMessage (state=[], action){
     }
     return state
 }
+
+export function ReducerViaMessage (state=[], action){
+    switch(action.type){
+        case AT_MESSAGE.VIA:
+            return action.payload; // immutable
+    }
+    return state
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {loadMessage, updateMessage} from '../../actions/message'
+import {loadMessage, updateMessage, updateSocketMessage} from '../../actions/message'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import socketIOClient from 'socket.io-client'
@@ -26,12 +26,14 @@ display: flex;
 height: 10%;
 `;
 const Message = styled.button`
-background-color: ${props => props.right ? 'rgb(87,141,210)' : '#eceff1'};
-color: ${props => props.right ? 'white' : 'black'};
+background-color: ${props => props.send != props.me ? '#eceff1' : 'rgb(87,141,210)'};
+color: ${props => props.send != props.me ? 'black': 'white'};
 max-width: 50%;
 border-radius: 5px;
-float: ${props => props.right ? 'right' : 'left'};
+position: relative;
+left: ${props => props.send != props.me ? '0%' : '50%'};
 `;
+
 const Validate = styled.button`
 background: palevioletred;
 color: white;
@@ -46,41 +48,54 @@ border: 1.2px rgb(224, 226, 227) solid;
 border-radius: 4px;
 `;
 class Conversation extends Component {
+    constructor(props){
+        super(props);
+     this.socket = socketIOClient(END_POINT)        
+    this.socket.on('messages', (data) => {
+        let who = localStorage.getItem('who');
+        if (props.user.info.id == data.id_receveur){
+        //     // alert("message")
+            if (data.id_envoyeur == who){
+                props.up(props.allmessage, data.message, data.id_receveur, data.id_envoyeur)
+                    this.forceUpdate()
+            }
+        }
+         })
+        }
     render () {
-        const socket = socketIOClient(END_POINT)        
-        socket.on('messages', (data) => {
-            console.log("data", data)   
-             })
+   
         return (
             <Return>
-                <form onSubmit={e => this.props.updateMessage(this.props.message, e, this.props.whomessage)}>                    
+                <form onSubmit={e => this.props.updateMessage(this.props.allmessage,this.props.message, e, this.props.whomessage, this.props.user.info.id)}>                    
                     <Div>
                         {
                             this.props.allmessage.map(t => {
-                                return(<Message disabled="disabled" >{t.message}</Message>)
+                                return(<Message send={t.id_envoyeur} me={this.props.user.info.id} disabled="disabled" >{t.message}</Message>)
                             })
                         }
                     </Div>
                     <Send>
-                        <Text placeholder="Ecrivez votre message" onChange={e => this.props.loadMessage(e.target.value)}></Text>
-                        <Validate>Envoyer</Validate>
+                        <Text placeholder="Ecrivez votre message" value={this.props.message} onChange={e => this.props.loadMessage(e.target.value)}></Text>
+                        <Validate onClick={e => setTimeout(() => {this.forceUpdate; this.props.loadMessage("")}, 100)}>Envoyer</Validate>
                     </Send>
                 </form>
         </Return>
         )
     }
+    
 }
 function mapStateToProps(state){
-    console.log("message", state.allmessage)
     return{
        message: state.loadmessage,
-       allmessage: state.allmessage
+       allmessage: state.allmessage,
+       whomessage: state.whomessage,
+       user: state.users
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        ...bindActionCreators({loadMessage, updateMessage}, dispatch)
+        ...bindActionCreators({loadMessage, updateMessage, updateSocketMessage}, dispatch)
     };
 };
 

@@ -13,6 +13,8 @@ export default function ReducerUsers (state=[], action){
             return action.payload;
         case AT_USERS.READ:
             return action.payload;
+        case AT_USERS.RESET:
+            return action.payload
     }
     return state
 }

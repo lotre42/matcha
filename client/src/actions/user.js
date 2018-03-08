@@ -100,10 +100,11 @@ export function imgInfo(e, props, image){
         dispatch({type: AT_USERS.INFO_USER, payload: ret})
     }
     reader.readAsDataURL(file)
+    const token = localStorage.getItem('token')
     const formData = new FormData();
     formData.append(image, file);
     axios.post(`${END_POINT}/upload`, formData, {
-    headers: { 'content-type': 'multipart/form-data' }
+    headers: { 'content-type': 'multipart/form-data' ,  'Authorization': token }
     })
     }
 }
@@ -112,9 +113,22 @@ export function readUser(id){
      return function (dispatch){
          let token = localStorage.getItem("token");
          let id_message = localStorage.getItem("idmessage").split(',');
-         console.log("iiii", id_message)
          let ret = JSON.parse(atob(token.split('.')[1]));
          dispatch({type: AT_MESSAGE.ID , payload: id_message})                   
         dispatch({type: AT_USERS.READ, payload: ret.user})    
     }
+}
+
+export function resetUser(id){
+    return function (dispatch){
+        const token = localStorage.getItem('token')        
+        axios({ method: 'get',
+        url: `${END_POINT}/deconnexion`,
+        params: id,
+        headers: { 'Authorization': token }})
+        browserHistory.push('/')
+        localStorage.removeItem("token");
+        const ret = []
+        dispatch({type: AT_USERS.RESET , payload: ret})                   
+   }
 }

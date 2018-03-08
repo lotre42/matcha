@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Bar from './bar_message'
 import Conversation from './conversation'
+import Send from './send'
 import Logo from '../../components/logo'
 import Menu from '../../components/menu'
 import styled from 'styled-components'
 import {browserHistory} from 'react-router'
 import { readUser } from '../../actions/user'
+import { updateSocketMessage } from '../../actions/message'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
@@ -19,7 +21,7 @@ color: rgb(87,141,210);
 font-family: Mothproofscriptregular;
 `;
 class Message extends Component {
-    render () {
+    render () {        
         if (localStorage.getItem("token")){
             function isEmpty(obj) {
                 for(var key in obj) {
@@ -40,7 +42,9 @@ class Message extends Component {
                     <H3>Mes messages</H3>
                     <DIV>
                         <Bar width="15%"/>
-                        <Conversation width="75%"/>
+                        {this.props.viamessage == 0 ? <div>Selectionner discussion</div> :
+                        <Conversation allmessage={this.props.allmessage} user={this.props.users} up={this.props.updateSocketMessage} who={this.props.whomessage} width="75%" />
+                        }
                     </DIV>
                 </div>
             )
@@ -53,14 +57,18 @@ class Message extends Component {
     }
 }
 function mapStateToProps(state){
+    console.log(state)
     return{
        users: state.users,
+       allmessage: state.allmessage,
+       whomessage: state.whomessage,
+       viamessage: state.viamessage
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        ...bindActionCreators({readUser}, dispatch)
+        ...bindActionCreators({readUser, updateSocketMessage}, dispatch)
     };
 };
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Info from './info'
 import Logo from '../../components/logo'
-import Loc from '../loc'
 import Img from './img'
 import styled from 'styled-components'
 import Menu from '../../components/menu'
@@ -31,7 +30,6 @@ class Information extends Component {
                     <Logo/>
                     <Info/>
                     <Img/>
-                    <Loc />
                 </div>
             )
         }

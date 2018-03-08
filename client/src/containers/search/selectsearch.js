@@ -71,6 +71,7 @@ class Selectsearch extends Component {
                <Divspan>
                         <Span>Sexe:</Span>
                         <Span>Distance:</Span>
+                        <Span>Popupalite:</Span>                        
                 </Divspan>
                <DivDuo>
                     <Select onChange={e => this.props.infoSearch(this.props.search, "sexe", e.target.value, "info")}>
@@ -82,6 +83,14 @@ class Selectsearch extends Component {
                         <option value="50">Moins 50km</option>
                         <option value="100">Moins 100km</option>
                         <option value="50000">Peu importe</option>
+                    </Select>
+                    <Select onChange={e => this.props.infoSearch(this.props.search, "pop", e.target.value, "info")}>
+                        <option  value="0-1">Entre 0 et 5</option>                        
+                        <option  value="0-1">Entre 0 et 1</option>
+                        <option value="1-2">Entre 1 et 2</option>
+                        <option value="2-3">Entre 2 et 3</option>
+                        <option value="3-4">Entre 3 et 4</option>
+                        <option value="4-5">Entre 4 et 5</option>                        
                     </Select>
                </DivDuo>
                <Divspan>
