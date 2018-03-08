@@ -47,4 +47,12 @@ let popularity = (id) =>{
   }
     requete();   
 }
-module.exports = {jsontransform, parseTag, popularity}
+
+let uploadImg = async (id, file) => {
+    const connection = await mysql.createConnection({host:'localhost', port: 3306, user: 'root',password:'27092709', database: 'matchafake', socketPath: '/var/mysql/mysql.sock'});
+    const upload = "UPDATE img SET " + file + " = ? WHERE id = ?" 
+    const img = '../../uploads/' + id+'-'+file+'.png'
+    await connection.execute(upload, [img,id])
+    
+}
+module.exports = {jsontransform, parseTag, popularity, uploadImg}

@@ -22,7 +22,7 @@ var casual = require('casual')
                 "vue": casual.integer(from = 0, to = 99),
                 "lik": casual.integer(from = 0, to = 99),
                 "pop": casual.integer(from = 0, to = 5),
-                
+                "enligne": casual.integer(from = 0, to = 1)
             }, 
             "tag": {
                 "Sport": casual.integer(from = 0, to = 1),
